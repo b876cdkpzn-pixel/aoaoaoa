@@ -3,1573 +3,1905 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0908">
-<meta name="description" content="BAO Sushi & Noodles Bar — паназиатская кухня в Алматы. Толе би, 181, Assem Plaza.">
 
-<title>BAO — Sushi & Noodles Bar · Almaty</title>
+<title>BAO — Sushi & Noodles Bar | Алматы</title>
+
+<meta name="description"
+content="BAO Sushi & Noodles Bar — азиатская кухня в Алматы. Рамен, суши, WOK, поке, бургеры и десерты. Толе би 181, Assem Plaza.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 
 <style>
 
-/* =========================================================
-   BAO — PREMIUM DESIGN SYSTEM
-========================================================= */
+:root {
+    --black: #080706;
+    --black2: #0e0c0a;
+    --black3: #15120f;
+    --black4: #1c1814;
 
-:root{
-    --black:#080706;
-    --black2:#0e0c0a;
-    --black3:#15120f;
-    --black4:#1c1814;
+    --cream: #f4eee5;
+    --cream2: #e8ddd0;
 
-    --cream:#f4eee5;
-    --cream2:#e8ddd0;
+    --champagne: #d9bd98;
+    --champagne2: #edd7b8;
+    --gold: #b99568;
 
-    --champagne:#d9bd98;
-    --champagne2:#edd7b8;
-    --gold:#b99568;
+    --muted: #9d9287;
+    --muted2: #70675f;
 
-    --muted:#9d9287;
-    --muted2:#70675f;
+    --border: rgba(217,189,152,.16);
+    --border2: rgba(255,255,255,.08);
 
-    --line:rgba(237,215,184,.13);
-    --line2:rgba(255,255,255,.08);
-
-    --radius:28px;
-    --ease:cubic-bezier(.2,.8,.2,1);
+    --radius: 3px;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-html{
-    scroll-behavior:smooth;
-    background:var(--black);
+html {
+    scroll-behavior: smooth;
 }
 
-body{
-    background:var(--black);
-    color:var(--cream);
-    font-family:"DM Sans",sans-serif;
-    overflow-x:hidden;
+body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: "DM Sans", sans-serif;
+    overflow-x: hidden;
 }
 
-body.lock{
-    overflow:hidden;
+body.menu-open {
+    overflow: hidden;
 }
 
-::selection{
-    background:var(--champagne);
-    color:var(--black);
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-a{
-    color:inherit;
-    text-decoration:none;
+button {
+    font-family: inherit;
 }
 
-button{
-    font:inherit;
+img {
+    max-width: 100%;
 }
 
-img{
-    display:block;
-    max-width:100%;
+.container {
+    width: min(1280px, calc(100% - 60px));
+    margin: 0 auto;
 }
 
-.container{
-    width:min(1240px,calc(100% - 48px));
-    margin:auto;
-}
-
-/* =========================================================
-   NOISE
-========================================================= */
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:9998;
-    opacity:.025;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
-}
-
-/* =========================================================
+/* =========================
    LOADER
-========================================================= */
+========================= */
 
-.loader{
-    position:fixed;
-    inset:0;
-    background:var(--black);
-    z-index:99999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:opacity .8s ease,visibility .8s ease;
+.loader {
+    position: fixed;
+    inset: 0;
+    background: var(--black);
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: opacity .6s ease, visibility .6s ease;
 }
 
-.loader.hide{
-    opacity:0;
-    visibility:hidden;
+.loader.hide {
+    opacity: 0;
+    visibility: hidden;
 }
 
-.loader-inner{
-    text-align:center;
+.loader-inner {
+    text-align: center;
 }
 
-.loader-logo{
-    font-family:"Playfair Display",serif;
-    font-size:76px;
-    letter-spacing:.18em;
-    color:var(--champagne2);
-    animation:loaderPulse 1.5s ease-in-out infinite;
+.loader-logo {
+    font-family: "Playfair Display", serif;
+    font-size: 64px;
+    letter-spacing: .12em;
 }
 
-.loader-line{
-    width:80px;
-    height:1px;
-    background:var(--champagne);
-    margin:18px auto 0;
-    transform-origin:left;
-    animation:loaderLine 1.5s ease-in-out infinite;
+.loader-line {
+    width: 80px;
+    height: 1px;
+    background: var(--champagne);
+    margin: 20px auto;
+    animation: loaderLine 1.5s infinite;
 }
 
-@keyframes loaderPulse{
-    50%{
-        opacity:.45;
-        transform:scale(.97);
+.loader-text {
+    font-size: 10px;
+    letter-spacing: .35em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+@keyframes loaderLine {
+    0%,100% {
+        transform: scaleX(.2);
+        opacity: .3;
+    }
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
     }
 }
 
-@keyframes loaderLine{
-    50%{
-        transform:scaleX(.25);
-        opacity:.4;
-    }
-}
-
-/* =========================================================
+/* =========================
    HEADER
-========================================================= */
-
-.header{
-    position:fixed;
-    left:0;
-    right:0;
-    top:0;
-    z-index:1000;
-    padding:25px 0;
-    transition:.45s var(--ease);
-}
-
-.header.scrolled{
-    padding:12px 0;
-    background:rgba(8,7,6,.82);
-    backdrop-filter:blur(24px);
-    -webkit-backdrop-filter:blur(24px);
-    border-bottom:1px solid var(--line);
-}
-
-.nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:30px;
-}
-
-.logo{
-    font-family:"Playfair Display",serif;
-    font-size:35px;
-    font-weight:600;
-    letter-spacing:.16em;
-    color:var(--cream);
-    position:relative;
-}
-
-.logo small{
-    display:block;
-    font-family:"DM Sans",sans-serif;
-    font-size:6px;
-    font-weight:700;
-    letter-spacing:.38em;
-    color:var(--champagne);
-    text-align:center;
-    margin-top:-4px;
-}
-
-.nav-links{
-    display:flex;
-    align-items:center;
-    gap:34px;
-}
-
-.nav-links a{
-    position:relative;
-    color:rgba(244,238,229,.66);
-    font-size:11px;
-    font-weight:700;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    transition:.3s;
-}
-
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-8px;
-    width:0;
-    height:1px;
-    background:var(--champagne);
-    transition:.35s var(--ease);
-}
-
-.nav-links a:hover{
-    color:var(--cream);
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-.nav-right{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.languages{
-    display:flex;
-    align-items:center;
-    padding:3px;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.025);
-    border-radius:100px;
-}
-
-.lang{
-    border:0;
-    background:transparent;
-    color:var(--muted);
-    min-width:34px;
-    height:29px;
-    border-radius:100px;
-    cursor:pointer;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.08em;
-    transition:.3s;
-}
-
-.lang:hover{
-    color:var(--cream);
-}
-
-.lang.active{
-    color:var(--black);
-    background:var(--champagne2);
-}
-
-.book-btn{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    border:1px solid var(--champagne);
-    background:var(--champagne2);
-    color:var(--black);
-    border-radius:100px;
-    padding:12px 18px;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    transition:.35s var(--ease);
-}
-
-.book-btn:hover{
-    background:transparent;
-    color:var(--champagne2);
-    transform:translateY(-2px);
-}
-
-.menu-toggle{
-    display:none;
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    border:1px solid var(--line);
-    background:rgba(255,255,255,.04);
-    color:var(--cream);
-    cursor:pointer;
-}
-
-.menu-toggle span{
-    display:block;
-    width:17px;
-    height:1px;
-    background:currentColor;
-    margin:4px auto;
-}
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-    min-height:100vh;
-    position:relative;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-}
-
-.hero-bg{
-    position:absolute;
-    inset:0;
-    background-image:
-        linear-gradient(90deg,
-            rgba(8,7,6,.97) 0%,
-            rgba(8,7,6,.86) 32%,
-            rgba(8,7,6,.42) 67%,
-            rgba(8,7,6,.18) 100%),
-        url("https://almaty.ppz.kz/upload/iblock/013/jgt0zfwrk08bcxrxalsqoylsiet4mgkn.jpg");
-    background-size:cover;
-    background-position:center;
-    transform:scale(1.03);
-    animation:heroZoom 16s ease-in-out infinite alternate;
-}
-
-.hero-bg::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-        radial-gradient(circle at 75% 45%,rgba(218,189,152,.12),transparent 25%),
-        linear-gradient(0deg,var(--black) 0%,transparent 25%);
-}
-
-@keyframes heroZoom{
-    from{transform:scale(1.03)}
-    to{transform:scale(1.09)}
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-    max-width:850px;
-    padding-top:80px;
-}
-
-.hero-mini{
-    display:flex;
-    align-items:center;
-    gap:13px;
-    color:var(--champagne2);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.32em;
-    text-transform:uppercase;
-    margin-bottom:28px;
-}
-
-.hero-mini::before{
-    content:"";
-    width:48px;
-    height:1px;
-    background:var(--champagne);
-}
-
-.hero h1{
-    font-family:"Playfair Display",serif;
-    font-size:clamp(64px,9vw,125px);
-    line-height:.89;
-    letter-spacing:-.055em;
-    font-weight:500;
-    margin-bottom:34px;
-}
-
-.hero h1 em{
-    color:var(--champagne2);
-    font-weight:500;
-}
-
-.hero-description{
-    max-width:560px;
-    color:rgba(244,238,229,.66);
-    font-size:14px;
-    line-height:1.9;
-    margin-bottom:38px;
-}
-
-.hero-actions{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-}
-
-.primary-btn,
-.secondary-btn{
-    min-height:53px;
-    padding:0 23px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    border-radius:100px;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    transition:.4s var(--ease);
-}
-
-.primary-btn{
-    background:var(--champagne2);
-    color:var(--black);
-    border:1px solid var(--champagne2);
-}
-
-.primary-btn:hover{
-    transform:translateY(-4px);
-    box-shadow:0 18px 50px rgba(218,189,152,.16);
-}
-
-.secondary-btn{
-    color:var(--cream);
-    border:1px solid rgba(244,238,229,.22);
-    background:rgba(8,7,6,.16);
-    backdrop-filter:blur(12px);
-}
-
-.secondary-btn:hover{
-    border-color:var(--champagne);
-    color:var(--champagne2);
-    transform:translateY(-4px);
-}
-
-.hero-bottom{
-    position:absolute;
-    z-index:3;
-    left:0;
-    right:0;
-    bottom:34px;
-}
-
-.hero-meta{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    color:rgba(244,238,229,.55);
-    font-size:10px;
-    letter-spacing:.04em;
-}
-
-.hero-address{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-
-.hero-address-dot{
-    width:6px;
-    height:6px;
-    background:var(--champagne);
-    border-radius:50%;
-    box-shadow:0 0 0 6px rgba(218,189,152,.08);
-}
-
-.hero-scroll{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    color:var(--muted);
-    font-size:9px;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-}
-
-.hero-scroll span:last-child{
-    width:55px;
-    height:1px;
-    background:var(--champagne);
-}
-
-/* =========================================================
-   MARQUEE
-========================================================= */
-
-.marquee{
-    overflow:hidden;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    background:var(--black2);
-    padding:19px 0;
-}
-
-.marquee-track{
-    display:flex;
-    width:max-content;
-    animation:marquee 30s linear infinite;
-}
-
-.marquee-item{
-    display:flex;
-    align-items:center;
-    gap:26px;
-    padding-right:26px;
-    color:var(--muted2);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.3em;
-    text-transform:uppercase;
-    white-space:nowrap;
-}
-
-.marquee-item b{
-    color:var(--champagne);
-    font-size:14px;
-}
-
-@keyframes marquee{
-    to{transform:translateX(-50%)}
-}
-
-/* =========================================================
-   GENERAL
-========================================================= */
-
-.section{
-    padding:140px 0;
-    position:relative;
-}
-
-.section-soft{
-    background:var(--black2);
-}
-
-.section-kicker{
-    color:var(--champagne);
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    margin-bottom:16px;
-}
-
-.section-title{
-    font-family:"Playfair Display",serif;
-    font-size:clamp(46px,5vw,72px);
-    line-height:.98;
-    font-weight:500;
-    letter-spacing:-.045em;
-}
+========================= */
 
-.section-description{
-    max-width:420px;
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.9;
-}
-
-.section-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    gap:40px;
-    margin-bottom:65px;
-}
-
-/* =========================================================
-   ABOUT
-========================================================= */
-
-.about-grid{
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    gap:90px;
-    align-items:center;
-}
-
-.about-photo{
-    height:670px;
-    position:relative;
-    overflow:hidden;
-    border-radius:3px;
-}
-
-.about-photo::before{
-    content:"";
-    position:absolute;
-    inset:14px;
-    border:1px solid rgba(237,215,184,.28);
-    z-index:2;
-    pointer-events:none;
-}
-
-.about-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:1s var(--ease);
-}
-
-.about-photo:hover img{
-    transform:scale(1.045);
-}
-
-.about-number{
-    position:absolute;
-    z-index:3;
-    left:30px;
-    bottom:28px;
-    font-family:"Playfair Display",serif;
-    color:rgba(244,238,229,.8);
-    font-size:12px;
-    letter-spacing:.12em;
-}
-
-.about-copy{
-    padding-right:25px;
-}
-
-.about-copy p{
-    color:var(--muted);
-    font-size:14px;
-    line-height:2;
-    margin:27px 0 35px;
-}
-
-.about-quote{
-    border-left:1px solid var(--champagne);
-    padding:5px 0 5px 22px;
-    color:var(--cream2);
-    font-family:"Playfair Display",serif;
-    font-size:23px;
-    line-height:1.45;
-    font-style:italic;
-}
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-}
-
-.stat{
-    padding:34px 28px;
-    border-right:1px solid var(--line);
-}
-
-.stat:last-child{
-    border-right:0;
-}
-
-.stat-number{
-    font-family:"Playfair Display",serif;
-    color:var(--champagne2);
-    font-size:34px;
-    margin-bottom:6px;
-}
-
-.stat-label{
-    color:var(--muted);
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-}
-
-/* =========================================================
-   CHEF CHOICE
-========================================================= */
-
-.chef{
-    background:
-        radial-gradient(circle at 75% 30%,rgba(217,189,152,.09),transparent 28%),
-        var(--black3);
-}
-
-.chef-grid{
-    display:grid;
-    grid-template-columns:.8fr 1.2fr;
-    min-height:600px;
-}
-
-.chef-photo{
-    min-height:600px;
-    overflow:hidden;
-    position:relative;
-}
-
-.chef-photo img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:1s var(--ease);
-}
-
-.chef-photo:hover img{
-    transform:scale(1.05);
-}
-
-.chef-copy{
-    padding:80px 8%;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    border-top:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-}
-
-.chef-label{
-    color:var(--champagne);
-    font-size:9px;
-    letter-spacing:.28em;
-    font-weight:800;
-    margin-bottom:20px;
-}
-
-.chef-title{
-    font-family:"Playfair Display",serif;
-    font-size:clamp(45px,5vw,72px);
-    line-height:.95;
-    letter-spacing:-.05em;
-    margin-bottom:24px;
-}
-
-.chef-text{
-    color:var(--muted);
-    font-size:13px;
-    line-height:1.9;
-    max-width:500px;
-    margin-bottom:35px;
-}
-
-.chef-line{
-    width:70px;
-    height:1px;
-    background:var(--champagne);
-    margin-bottom:30px;
-}
-
-/* =========================================================
-   MENU
-========================================================= */
-
-.menu-section{
-    background:var(--black);
-}
-
-.menu-tabs{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-    margin-bottom:35px;
-}
-
-.menu-tab{
-    border:1px solid var(--line);
-    background:transparent;
-    color:var(--muted);
-    border-radius:100px;
-    padding:12px 17px;
-    cursor:pointer;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    transition:.35s var(--ease);
-}
-
-.menu-tab:hover{
-    color:var(--cream);
-    border-color:rgba(237,215,184,.35);
-}
-
-.menu-tab.active{
-    color:var(--black);
-    background:var(--champagne2);
-    border-color:var(--champagne2);
-}
-
-.menu-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    border-top:1px solid var(--line);
-    border-left:1px solid var(--line);
-}
-
-.menu-card{
-    min-height:125px;
-    padding:27px 30px;
-    display:flex;
-    justify-content:space-between;
-    gap:30px;
-    border-right:1px solid var(--line);
-    border-bottom:1px solid var(--line);
-    background:var(--black2);
-    transition:.4s var(--ease);
-}
-
-.menu-card:hover{
-    background:var(--black3);
-    transform:translateY(-2px);
-}
-
-.menu-card-left{
-    min-width:0;
-}
-
-.menu-card-index{
-    color:var(--gold);
-    font-size:8px;
-    letter-spacing:.2em;
-    margin-bottom:9px;
-}
-
-.menu-card-name{
-    font-family:"Playfair Display",serif;
-    font-size:21px;
-    color:var(--cream);
-    line-height:1.1;
-    margin-bottom:9px;
-}
-
-.menu-card-desc{
-    color:var(--muted2);
-    font-size:9px;
-    line-height:1.5;
-}
-
-.menu-price{
-    color:var(--champagne2);
-    font-size:11px;
-    font-weight:800;
-    white-space:nowrap;
-    padding-top:19px;
-}
-
-/* =========================================================
-   GALLERY
-========================================================= */
-
-.gallery{
-    background:var(--black2);
-}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
-.gallery-grid{
-    display:grid;
-    grid-template-columns:1.35fr .65fr .65fr;
-    grid-template-rows:320px 320px;
-    gap:10px;
-}
-
-.gallery-item{
-    position:relative;
-    overflow:hidden;
-    background:var(--black3);
-    cursor:pointer;
-}
-
-.gallery-item:first-child{
-    grid-row:1 / 3;
-}
-
-.gallery-item img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:1s var(--ease);
-}
+    height: 82px;
 
-.gallery-item::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(0deg,rgba(0,0,0,.65),transparent 55%);
-    opacity:.6;
-    transition:.4s;
-}
+    z-index: 1000;
 
-.gallery-item:hover img{
-    transform:scale(1.07);
+    transition:
+        background .4s ease,
+        border .4s ease,
+        backdrop-filter .4s ease;
 }
 
-.gallery-item:hover::after{
-    opacity:1;
+.header.scrolled {
+    background: rgba(8,7,6,.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
 }
 
-.gallery-caption{
-    position:absolute;
-    left:22px;
-    bottom:20px;
-    z-index:2;
-    color:var(--cream);
-    font-size:8px;
-    font-weight:800;
-    letter-spacing:.2em;
-}
+.header-inner {
+    height: 100%;
 
-/* =========================================================
-   EXPERIENCE
-========================================================= */
-
-.experience{
-    min-height:650px;
-    display:flex;
-    align-items:center;
-    position:relative;
-    overflow:hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
 }
 
-.experience-bg{
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(90deg,rgba(8,7,6,.98),rgba(8,7,6,.72),rgba(8,7,6,.22)),
-        url("https://almaty.ppz.kz/upload/iblock/eef/8vx7i34qprzs9rnz5mg2qoejjt5mo9b6.jpg");
-    background-size:cover;
-    background-position:center;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
 }
 
-.experience-content{
-    position:relative;
-    z-index:2;
-    max-width:650px;
-}
+.logo-mark {
+    width: 37px;
+    height: 37px;
 
-.experience-content .section-title{
-    font-size:clamp(52px,6vw,86px);
-}
+    border: 1px solid var(--champagne);
 
-.experience-content p{
-    color:rgba(244,238,229,.62);
-    max-width:500px;
-    line-height:1.9;
-    font-size:14px;
-    margin:27px 0 35px;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-/* =========================================================
-   CONTACTS
-========================================================= */
-
-.contact-grid{
-    display:grid;
-    grid-template-columns:.75fr 1.25fr;
-    gap:70px;
-}
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
 
-.contact-list{
-    border-top:1px solid var(--line);
+    transform: rotate(45deg);
 }
 
-.contact-item{
-    padding:25px 0;
-    border-bottom:1px solid var(--line);
+.logo-mark span {
+    transform: rotate(-45deg);
 }
 
-.contact-label{
-    color:var(--muted2);
-    font-size:8px;
-    font-weight:800;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    margin-bottom:9px;
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
 }
 
-.contact-value{
-    color:var(--cream);
-    font-size:14px;
-    line-height:1.7;
+.logo-text strong {
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: .12em;
 }
 
-.contact-value a{
-    transition:.3s;
+.logo-text small {
+    margin-top: 5px;
+    font-size: 7px;
+    letter-spacing: .28em;
+    color: var(--muted);
+    text-transform: uppercase;
 }
 
-.contact-value a:hover{
-    color:var(--champagne);
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
 }
 
-.map-card{
-    min-height:450px;
-    position:relative;
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:
-        radial-gradient(circle at 50% 50%,rgba(217,189,152,.13),transparent 20%),
-        linear-gradient(135deg,#18140f,#090807);
+.nav a {
+    font-size: 12px;
+    letter-spacing: .08em;
+    color: #c8beb3;
+    position: relative;
+    transition: color .3s ease;
 }
 
-.map-lines{
-    position:absolute;
-    inset:-20%;
-    opacity:.18;
-    background-image:
-        linear-gradient(32deg,transparent 48%,var(--champagne) 49%,transparent 50%),
-        linear-gradient(120deg,transparent 48%,var(--champagne) 49%,transparent 50%);
-    background-size:100px 100px;
-    transform:rotate(-7deg);
+.nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -7px;
+    width: 0;
+    height: 1px;
+    background: var(--champagne);
+    transition: width .3s ease;
 }
 
-.map-content{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px;
+.nav a:hover {
+    color: var(--cream);
 }
 
-.map-ring{
-    width:75px;
-    height:75px;
-    border:1px solid rgba(237,215,184,.3);
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    margin-bottom:25px;
-    position:relative;
+.nav a:hover::after {
+    width: 100%;
 }
 
-.map-ring::before{
-    content:"";
-    position:absolute;
-    inset:9px;
-    border:1px solid var(--champagne);
-    border-radius:50%;
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
 }
 
-.map-pin{
-    position:relative;
-    z-index:2;
-    color:var(--champagne2);
+.langs {
+    display: flex;
+    gap: 4px;
 }
 
-.map-content h3{
-    font-family:"Playfair Display",serif;
-    font-size:39px;
-    margin-bottom:8px;
-}
+.lang-btn {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
 
-.map-content p{
-    color:var(--muted);
-    font-size:11px;
-    margin-bottom:27px;
-}
+    font-size: 10px;
+    padding: 5px 6px;
 
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer{
-    padding:65px 0 30px;
-    background:#050403;
-    border-top:1px solid var(--line);
+    transition: .3s ease;
 }
 
-.footer-top{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:40px;
-    padding-bottom:50px;
-    border-bottom:1px solid var(--line);
+.lang-btn.active,
+.lang-btn:hover {
+    color: var(--champagne2);
 }
 
-.footer-logo{
-    font-family:"Playfair Display",serif;
-    font-size:58px;
-    letter-spacing:.15em;
-}
+.book-btn {
+    border: 1px solid var(--border);
+    padding: 12px 18px;
 
-.footer-tag{
-    color:var(--muted);
-    font-size:9px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    margin-top:10px;
-}
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
 
-.footer-links{
-    display:flex;
-    gap:30px;
+    transition: .3s ease;
 }
 
-.footer-links a{
-    color:var(--muted);
-    font-size:10px;
-    transition:.3s;
+.book-btn:hover {
+    background: var(--champagne);
+    color: var(--black);
+    border-color: var(--champagne);
 }
 
-.footer-links a:hover{
-    color:var(--champagne);
-}
+.menu-toggle {
+    display: none;
 
-.footer-social{
-    display:flex;
-    gap:8px;
-}
+    border: 0;
+    background: transparent;
+    color: var(--cream);
 
-.social{
-    width:43px;
-    height:43px;
-    border:1px solid var(--line);
-    border-radius:50%;
-    display:grid;
-    place-items:center;
-    color:var(--muted);
-    transition:.35s;
-}
+    width: 40px;
+    height: 40px;
 
-.social:hover{
-    color:var(--champagne);
-    border-color:var(--champagne);
-    transform:translateY(-3px);
+    cursor: pointer;
 }
 
-.footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    padding-top:25px;
-    color:var(--muted2);
-    font-size:9px;
+.menu-toggle span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--cream);
+    margin: 5px auto;
+    transition: .3s ease;
 }
 
-/* =========================================================
+/* =========================
    MOBILE MENU
-========================================================= */
+========================= */
 
-.mobile-menu{
-    position:fixed;
-    inset:0;
-    z-index:950;
-    background:rgba(8,7,6,.98);
-    padding:115px 28px 40px;
-    transform:translateX(100%);
-    transition:.5s var(--ease);
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+
+    background: var(--black);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .4s ease;
 }
 
-.mobile-menu.open{
-    transform:translateX(0);
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.mobile-menu-links{
-    display:grid;
+.mobile-nav {
+    text-align: center;
 }
 
-.mobile-menu-links a{
-    font-family:"Playfair Display",serif;
-    font-size:39px;
-    padding:14px 0;
-    border-bottom:1px solid var(--line);
+.mobile-nav a {
+    display: block;
+
+    font-family: "Playfair Display", serif;
+    font-size: 38px;
+
+    margin: 17px 0;
+
+    color: var(--cream2);
+
+    transition: .3s ease;
 }
 
-.mobile-menu-bottom{
-    margin-top:35px;
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    align-items:center;
+.mobile-nav a:hover {
+    color: var(--champagne);
 }
 
-.mobile-language{
-    display:flex;
-    gap:6px;
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 100vh;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
 }
 
-.mobile-language .lang{
-    border:1px solid var(--line);
+.hero-bg {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,7,6,.94) 0%,
+            rgba(8,7,6,.68) 42%,
+            rgba(8,7,6,.25) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(8,7,6,.8),
+            transparent 50%
+        ),
+        url("https://almaty.ppz.kz/upload/iblock/013/jgt0zfwrk08bcxrxalsqoylsiet4mgkn.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    transform: scale(1.04);
+    animation: heroZoom 12s ease-out forwards;
 }
 
-.mobile-language .lang.active{
-    border-color:var(--champagne2);
+@keyframes heroZoom {
+    from {
+        transform: scale(1.08);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
-/* =========================================================
-   MOBILE BAR
-========================================================= */
+.hero-content {
+    position: relative;
+    z-index: 2;
 
-.mobile-bar{
-    display:none;
+    padding-top: 100px;
+    max-width: 720px;
 }
 
-/* =========================================================
+.hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    color: var(--champagne);
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+
+    margin-bottom: 25px;
+
+    animation: fadeUp .8s .2s both;
+}
+
+.hero-kicker::before {
+    content: "";
+    width: 42px;
+    height: 1px;
+    background: var(--champagne);
+}
+
+.hero h1 {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+
+    font-size: clamp(58px, 8vw, 112px);
+    line-height: .87;
+    letter-spacing: -.045em;
+
+    animation: fadeUp .9s .35s both;
+}
+
+.hero h1 em {
+    color: var(--champagne2);
+    font-style: italic;
+}
+
+.hero-subtitle {
+    margin-top: 29px;
+
+    font-size: 12px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+
+    color: var(--cream2);
+
+    animation: fadeUp .9s .5s both;
+}
+
+.hero-description {
+    max-width: 470px;
+
+    margin-top: 22px;
+
+    color: #b9afa5;
+    line-height: 1.8;
+    font-size: 15px;
+
+    animation: fadeUp .9s .65s both;
+}
+
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: 34px;
+
+    animation: fadeUp .9s .8s both;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 50px;
+    padding: 0 23px;
+
+    border: 1px solid var(--border);
+
+    font-size: 10px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+
+    transition: .35s ease;
+}
+
+.btn-primary {
+    background: var(--champagne);
+    color: var(--black);
+    border-color: var(--champagne);
+}
+
+.btn-primary:hover {
+    background: var(--champagne2);
+    transform: translateY(-2px);
+}
+
+.btn-outline:hover {
+    border-color: var(--champagne);
+    color: var(--champagne2);
+}
+
+.hero-bottom {
+    position: absolute;
+    z-index: 3;
+
+    bottom: 32px;
+    left: 0;
+    right: 0;
+}
+
+.hero-bottom-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.scroll-down {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 9px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+
+    color: var(--muted);
+}
+
+.scroll-line {
+    width: 48px;
+    height: 1px;
+    background: var(--muted2);
+}
+
+/* =========================
+   MARQUEE
+========================= */
+
+.marquee {
+    overflow: hidden;
+
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    background: var(--black2);
+}
+
+.marquee-track {
+    width: max-content;
+
+    display: flex;
+    align-items: center;
+
+    animation: marquee 25s linear infinite;
+}
+
+.marquee-item {
+    padding: 23px 35px;
+
+    font-family: "Playfair Display", serif;
+    font-size: 21px;
+    font-style: italic;
+
+    color: var(--cream2);
+}
+
+.marquee-item::after {
+    content: "✦";
+    margin-left: 70px;
+
+    font-family: "DM Sans", sans-serif;
+    font-size: 10px;
+
+    color: var(--champagne);
+}
+
+@keyframes marquee {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    padding: 135px 0;
+}
+
+.section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+
+    margin-bottom: 60px;
+}
+
+.eyebrow {
+    display: block;
+
+    margin-bottom: 18px;
+
+    font-size: 9px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+
+    color: var(--champagne);
+}
+
+.section-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 400;
+
+    line-height: .98;
+}
+
+.section-title em {
+    color: var(--champagne);
+    font-style: italic;
+}
+
+.section-text {
+    max-width: 440px;
+
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 80px;
+
+    align-items: center;
+}
+
+.about-image {
+    position: relative;
+    height: 630px;
+    overflow: hidden;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 1s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.04);
+}
+
+.about-image::before {
+    content: "";
+
+    position: absolute;
+    z-index: 2;
+
+    inset: 18px;
+
+    border: 1px solid rgba(255,255,255,.14);
+
+    pointer-events: none;
+}
+
+.about-content {
+    padding-right: 30px;
+}
+
+.about-content p {
+    color: var(--muted);
+    line-height: 1.9;
+    font-size: 15px;
+
+    margin-bottom: 20px;
+}
+
+.about-signature {
+    margin-top: 35px;
+
+    font-family: "Playfair Display", serif;
+    font-style: italic;
+    font-size: 29px;
+
+    color: var(--champagne2);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+
+    background: var(--black2);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.stat {
+    padding: 45px 30px;
+
+    border-right: 1px solid var(--border);
+
+    text-align: center;
+}
+
+.stat:last-child {
+    border-right: 0;
+}
+
+.stat-number {
+    font-family: "Playfair Display", serif;
+    font-size: 43px;
+
+    color: var(--champagne2);
+}
+
+.stat-label {
+    margin-top: 8px;
+
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+
+    color: var(--muted);
+}
+
+/* =========================
+   CHEF CHOICE
+========================= */
+
+.chef-choice {
+    background: var(--black2);
+}
+
+.choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 650px;
+}
+
+.choice-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+}
+
+.choice-image:hover img {
+    transform: scale(1.05);
+}
+
+.choice-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 80px;
+}
+
+.choice-number {
+    color: var(--champagne);
+
+    font-size: 9px;
+    letter-spacing: .25em;
+
+    margin-bottom: 18px;
+}
+
+.choice-content h3 {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(38px, 4vw, 62px);
+    font-weight: 400;
+}
+
+.choice-content h3 em {
+    color: var(--champagne);
+}
+
+.choice-content p {
+    max-width: 460px;
+
+    margin-top: 25px;
+
+    color: var(--muted);
+    line-height: 1.9;
+}
+
+.choice-price {
+    margin-top: 30px;
+
+    font-size: 19px;
+    color: var(--champagne2);
+}
+
+/* =========================
+   MENU
+========================= */
+
+.menu-section {
+    background: var(--black);
+}
+
+.menu-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 45px;
+}
+
+.menu-tab {
+    border: 1px solid var(--border);
+    background: transparent;
+
+    color: var(--muted);
+
+    padding: 11px 17px;
+
+    cursor: pointer;
+
+    font-size: 9px;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+
+    transition: .3s ease;
+}
+
+.menu-tab:hover,
+.menu-tab.active {
+    background: var(--champagne);
+    color: var(--black);
+    border-color: var(--champagne);
+}
+
+.menu-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    column-gap: 70px;
+}
+
+.menu-item {
+    position: relative;
+
+    padding: 24px 0;
+
+    border-bottom: 1px solid var(--border);
+
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+    animation: fadeUp .5s both;
+}
+
+.menu-item-info {
+    min-width: 0;
+}
+
+.menu-item-name {
+    font-family: "Playfair Display", serif;
+    font-size: 20px;
+
+    color: var(--cream2);
+
+    transition: color .3s ease;
+}
+
+.menu-item:hover .menu-item-name {
+    color: var(--champagne2);
+}
+
+.menu-item-desc {
+    margin-top: 7px;
+
+    color: var(--muted2);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.menu-price {
+    flex-shrink: 0;
+
+    color: var(--champagne);
+
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery-section {
+    padding: 140px 0;
+    background: var(--black2);
+    overflow: hidden;
+}
+
+.gallery-section .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 50px;
+
+    margin-bottom: 55px;
+}
+
+.gallery-section .section-head > p {
+    max-width: 430px;
+
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.gallery-grid {
+    display: grid;
+
+    grid-template-columns: 1.35fr 1fr 1fr;
+    grid-template-rows: 330px 330px;
+
+    gap: 14px;
+}
+
+.gallery-item {
+    position: relative;
+
+    overflow: hidden;
+
+    background: var(--black3);
+
+    min-height: 0;
+
+    cursor: pointer;
+}
+
+.gallery-item:first-child {
+    grid-row: 1 / 3;
+}
+
+.gallery-item:nth-child(2) {
+    grid-column: 2;
+}
+
+.gallery-item:nth-child(3) {
+    grid-column: 3;
+}
+
+.gallery-item:nth-child(4) {
+    grid-column: 2;
+}
+
+.gallery-item:nth-child(5) {
+    grid-column: 3;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform .8s cubic-bezier(.2,.7,.2,1),
+        filter .8s ease;
+}
+
+.gallery-item::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,0,0,0) 35%,
+            rgba(0,0,0,.76) 100%
+        );
+
+    opacity: .75;
+
+    transition: opacity .5s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.07);
+    filter: brightness(.82);
+}
+
+.gallery-item:hover::after {
+    opacity: 1;
+}
+
+.gallery-overlay {
+    position: absolute;
+
+    z-index: 2;
+
+    left: 25px;
+    right: 25px;
+    bottom: 23px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color: #fff;
+
+    transform: translateY(8px);
+
+    transition: transform .5s ease;
+}
+
+.gallery-overlay span {
+    font-size: 10px;
+    letter-spacing: .2em;
+
+    color: var(--champagne);
+}
+
+.gallery-overlay strong {
+    margin-left: auto;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 22px;
+    font-weight: 500;
+
+    text-align: right;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+/* =========================
+   EXPERIENCE
+========================= */
+
+.experience {
+    position: relative;
+
+    padding: 150px 0;
+
+    background:
+        linear-gradient(
+            rgba(8,7,6,.75),
+            rgba(8,7,6,.9)
+        ),
+        url("https://almaty.ppz.kz/upload/iblock/eef/8vx7i34qprzs9rnz5mg2qoejjt5mo9b6.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.experience-content {
+    max-width: 700px;
+}
+
+.experience h2 {
+    font-family: "Playfair Display", serif;
+    font-weight: 400;
+
+    font-size: clamp(48px, 7vw, 90px);
+
+    line-height: .95;
+}
+
+.experience h2 em {
+    color: var(--champagne);
+}
+
+.experience p {
+    margin-top: 28px;
+
+    max-width: 550px;
+
+    color: #b4a99e;
+
+    line-height: 1.9;
+}
+
+/* =========================
+   CONTACTS
+========================= */
+
+.contacts {
+    background: var(--black2);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+
+    gap: 70px;
+}
+
+.contact-info {
+    display: grid;
+    gap: 27px;
+}
+
+.contact-card {
+    border-top: 1px solid var(--border);
+
+    padding-top: 18px;
+}
+
+.contact-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: var(--champagne);
+
+    font-size: 9px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+}
+
+.contact-value {
+    color: var(--cream2);
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 22px;
+}
+
+.contact-value.small {
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--muted);
+}
+
+.contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 35px;
+}
+
+.map {
+    min-height: 460px;
+
+    border: 1px solid var(--border);
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #171310,
+            #0d0b09
+        );
+}
+
+.map::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(217,189,152,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(217,189,152,.05) 1px, transparent 1px);
+
+    background-size: 55px 55px;
+}
+
+.map-content {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+.map-pin {
+    width: 58px;
+    height: 58px;
+
+    border: 1px solid var(--champagne);
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+    animation: pulse 2s infinite;
+}
+
+.map-pin::after {
+    content: "";
+
+    width: 10px;
+    height: 10px;
+
+    background: var(--champagne);
+
+    border-radius: 50%;
+}
+
+.map-content h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 31px;
+    font-weight: 400;
+}
+
+.map-content p {
+    margin-top: 10px;
+
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.map-link {
+    margin-top: 24px;
+
+    color: var(--champagne);
+
+    font-size: 9px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+
+    border-bottom: 1px solid var(--champagne);
+
+    padding-bottom: 4px;
+}
+
+@keyframes pulse {
+    0%,100% {
+        box-shadow: 0 0 0 0 rgba(217,189,152,.1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 16px rgba(217,189,152,0);
+    }
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    padding: 65px 0 30px;
+
+    border-top: 1px solid var(--border);
+
+    background: var(--black);
+}
+
+.footer-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 50px;
+
+    padding-bottom: 55px;
+}
+
+.footer-brand {
+    max-width: 350px;
+}
+
+.footer-brand .logo-text strong {
+    font-size: 28px;
+}
+
+.footer-description {
+    margin-top: 20px;
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 70px;
+}
+
+.footer-column h4 {
+    margin-bottom: 18px;
+
+    font-size: 9px;
+    letter-spacing: .2em;
+
+    text-transform: uppercase;
+
+    color: var(--champagne);
+}
+
+.footer-column a {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin: 10px 0;
+
+    transition: color .3s ease;
+}
+
+.footer-column a:hover {
+    color: var(--cream);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+
+    padding-top: 25px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    color: var(--muted2);
+
+    font-size: 10px;
+}
+
+/* =========================
    LIGHTBOX
-========================================================= */
+========================= */
 
-.lightbox{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    background:rgba(0,0,0,.94);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:25px;
+.lightbox {
+    position: fixed;
+    inset: 0;
+
+    z-index: 3000;
+
+    background: rgba(0,0,0,.94);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .35s ease;
 }
 
-.lightbox.open{
-    display:flex;
+.lightbox.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.lightbox img{
-    max-width:95vw;
-    max-height:90vh;
-    object-fit:contain;
+.lightbox img {
+    max-width: 90vw;
+    max-height: 88vh;
+
+    object-fit: contain;
+
+    box-shadow: 0 30px 100px rgba(0,0,0,.7);
 }
 
-.lightbox-close{
-    position:absolute;
-    right:25px;
-    top:25px;
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    border:1px solid rgba(255,255,255,.2);
-    background:rgba(255,255,255,.05);
-    color:white;
-    cursor:pointer;
-    font-size:25px;
+.lightbox-close {
+    position: absolute;
+
+    top: 25px;
+    right: 30px;
+
+    width: 45px;
+    height: 45px;
+
+    border: 1px solid var(--border);
+
+    background: transparent;
+
+    color: var(--cream);
+
+    cursor: pointer;
+
+    font-size: 20px;
 }
 
-/* =========================================================
+/* =========================
    REVEAL
-========================================================= */
+========================= */
 
-.reveal{
-    opacity:0;
-    transform:translateY(35px);
-    transition:opacity .9s ease,transform .9s var(--ease);
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s cubic-bezier(.2,.7,.2,1);
 }
 
-.reveal.visible{
-    opacity:1;
-    transform:translateY(0);
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.delay1{transition-delay:.1s}
-.delay2{transition-delay:.2s}
-.delay3{transition-delay:.3s}
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
 
-/* =========================================================
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   MOBILE BAR
+========================= */
+
+.mobile-bar {
+    display: none;
+}
+
+/* =========================
    RESPONSIVE
-========================================================= */
+========================= */
 
-@media(max-width:1000px){
+@media (max-width: 1050px) {
 
-    .nav-links,
-    .header .book-btn{
-        display:none;
+    .nav {
+        gap: 18px;
     }
 
-    .menu-toggle{
-        display:block;
+    .nav a {
+        font-size: 10px;
     }
 
-    .about-grid{
-        grid-template-columns:1fr;
-        gap:55px;
+    .about-grid {
+        gap: 45px;
     }
 
-    .about-photo{
-        height:550px;
+    .choice-content {
+        padding: 55px;
     }
 
-    .stats{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .stat:nth-child(2){
-        border-right:0;
-    }
-
-    .stat:nth-child(-n+2){
-        border-bottom:1px solid var(--line);
-    }
-
-    .chef-grid{
-        grid-template-columns:1fr;
-    }
-
-    .chef-photo{
-        min-height:500px;
-    }
-
-    .contact-grid{
-        grid-template-columns:1fr;
-    }
-
-    .gallery-grid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:280px 220px 220px;
-    }
-
-    .gallery-item:first-child{
-        grid-column:1 / 3;
-        grid-row:auto;
-    }
-
-    .menu-grid{
-        grid-template-columns:1fr;
-    }
-
-    .mobile-bar{
-        display:flex;
-        position:fixed;
-        z-index:800;
-        left:12px;
-        right:12px;
-        bottom:12px;
-        padding:6px;
-        border:1px solid var(--line);
-        background:rgba(17,14,12,.91);
-        backdrop-filter:blur(22px);
-        border-radius:20px;
-    }
-
-    .mobile-bar a{
-        flex:1;
-        text-align:center;
-        padding:12px 4px;
-        color:var(--muted);
-        font-size:9px;
-        font-weight:800;
-        letter-spacing:.05em;
-        text-transform:uppercase;
-    }
-
-    .mobile-bar a.active{
-        color:var(--champagne2);
-    }
-
-    .footer{
-        padding-bottom:100px;
+    .footer-links {
+        gap: 35px;
     }
 }
 
-@media(max-width:600px){
+@media (max-width: 850px) {
 
-    .container{
-        width:calc(100% - 28px);
+    .container {
+        width: min(100% - 38px, 700px);
     }
 
-    .header{
-        padding:14px 0;
+    .header {
+        height: 70px;
     }
 
-    .logo{
-        font-size:29px;
+    .nav,
+    .header-right .book-btn {
+        display: none;
     }
 
-    .languages{
-        display:none;
+    .menu-toggle {
+        display: block;
     }
 
-    .hero{
-        min-height:800px;
-        align-items:flex-end;
-        padding-bottom:90px;
+    .header-right {
+        margin-left: auto;
     }
 
-    .hero-bg{
-        background-image:
-            linear-gradient(0deg,
-                rgba(8,7,6,.98) 4%,
-                rgba(8,7,6,.65) 55%,
-                rgba(8,7,6,.16) 100%),
+    .hero {
+        min-height: 800px;
+    }
+
+    .hero-bg {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(8,7,6,.65),
+                rgba(8,7,6,.78) 60%,
+                rgba(8,7,6,.96)
+            ),
             url("https://almaty.ppz.kz/upload/iblock/013/jgt0zfwrk08bcxrxalsqoylsiet4mgkn.jpg");
-        background-position:62% center;
+
+        background-position: center;
     }
 
-    .hero-content{
-        padding-top:100px;
+    .hero-content {
+        padding-top: 70px;
     }
 
-    .hero-mini{
-        font-size:8px;
-        letter-spacing:.23em;
+    .hero h1 {
+        font-size: clamp(54px, 15vw, 88px);
     }
 
-    .hero h1{
-        font-size:55px;
-        line-height:.94;
+    .hero-description {
+        font-size: 14px;
     }
 
-    .hero-description{
-        font-size:12px;
-        line-height:1.8;
+    .hero-actions {
+        flex-wrap: wrap;
     }
 
-    .hero-actions{
-        flex-direction:column;
+    .section {
+        padding: 90px 0;
     }
 
-    .primary-btn,
-    .secondary-btn{
-        width:100%;
+    .section-head {
+        display: block;
+        margin-bottom: 40px;
     }
 
-    .hero-scroll{
-        display:none;
+    .section-text {
+        margin-top: 22px;
     }
 
-    .hero-meta{
-        justify-content:center;
+    .about-grid {
+        grid-template-columns: 1fr;
     }
 
-    .section{
-        padding:90px 0;
+    .about-image {
+        height: 500px;
     }
 
-    .section-head{
-        display:block;
-        margin-bottom:40px;
+    .about-content {
+        padding-right: 0;
     }
 
-    .section-description{
-        margin-top:20px;
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .section-title{
-        font-size:45px;
+    .stat:nth-child(2) {
+        border-right: 0;
     }
 
-    .about-photo{
-        height:420px;
+    .stat:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
     }
 
-    .about-copy{
-        padding:0;
+    .choice-grid {
+        grid-template-columns: 1fr;
     }
 
-    .about-copy p{
-        font-size:13px;
+    .choice-image {
+        min-height: 500px;
     }
 
-    .about-quote{
-        font-size:19px;
+    .choice-content {
+        padding: 65px 30px;
     }
 
-    .stats{
-        grid-template-columns:1fr 1fr;
+    .menu-list {
+        grid-template-columns: 1fr;
     }
 
-    .stat{
-        padding:25px 17px;
+    .gallery-section {
+        padding: 90px 0;
     }
 
-    .stat-number{
-        font-size:27px;
+    .gallery-section .section-head {
+        display: block;
+        margin-bottom: 35px;
     }
 
-    .stat-label{
-        font-size:7px;
-        line-height:1.5;
+    .gallery-section .section-head > p {
+        margin-top: 20px;
     }
 
-    .chef-photo{
-        min-height:390px;
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+
+        grid-template-rows:
+            300px
+            230px
+            230px;
+
+        gap: 10px;
     }
 
-    .chef-copy{
-        padding:60px 25px;
+    .gallery-item:first-child {
+        grid-column: 1 / 3;
+        grid-row: 1;
     }
 
-    .chef-title{
-        font-size:48px;
+    .gallery-item:nth-child(2) {
+        grid-column: 1;
+        grid-row: 2;
     }
 
-    .menu-tabs{
-        flex-wrap:nowrap;
-        overflow-x:auto;
-        scrollbar-width:none;
-        padding-bottom:8px;
+    .gallery-item:nth-child(3) {
+        grid-column: 2;
+        grid-row: 2;
     }
 
-    .menu-tab{
-        flex-shrink:0;
+    .gallery-item:nth-child(4) {
+        grid-column: 1;
+        grid-row: 3;
     }
 
-    .menu-card{
-        min-height:110px;
-        padding:22px 17px;
+    .gallery-item:nth-child(5) {
+        grid-column: 2;
+        grid-row: 3;
     }
 
-    .menu-card-name{
-        font-size:18px;
+    .gallery-overlay {
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
     }
 
-    .menu-card-desc{
-        font-size:8px;
+    .gallery-overlay strong {
+        font-size: 16px;
     }
 
-    .menu-price{
-        font-size:10px;
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 
-    .gallery-grid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:270px 180px 180px;
-        gap:7px;
+    .map {
+        min-height: 390px;
     }
 
-    .gallery-item:first-child{
-        grid-column:1 / 3;
+    .footer-top {
+        flex-direction: column;
     }
 
-    .gallery-caption{
-        left:12px;
-        bottom:12px;
-        font-size:7px;
+    .footer-links {
+        flex-wrap: wrap;
     }
 
-    .experience{
-        min-height:620px;
+    .mobile-bar {
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        position: fixed;
+
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+
+        z-index: 900;
+
+        background: rgba(17,14,12,.94);
+
+        backdrop-filter: blur(18px);
+
+        border: 1px solid var(--border);
+
+        box-shadow: 0 15px 50px rgba(0,0,0,.45);
     }
 
-    .experience-content .section-title{
-        font-size:51px;
+    .mobile-bar a {
+        min-height: 52px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 9px;
+
+        font-size: 9px;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+
+        color: var(--cream2);
     }
 
-    .map-card{
-        min-height:350px;
+    .mobile-bar a + a {
+        border-left: 1px solid var(--border);
+    }
+}
+
+@media (max-width: 520px) {
+
+    .container {
+        width: calc(100% - 30px);
     }
 
-    .footer-top{
-        flex-direction:column;
+    .logo-text strong {
+        font-size: 19px;
     }
 
-    .footer-logo{
-        font-size:50px;
+    .logo-text small {
+        font-size: 6px;
     }
 
-    .footer-links{
-        flex-wrap:wrap;
-        gap:18px;
+    .logo-mark {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
     }
 
-    .footer-bottom{
-        flex-direction:column;
-        padding-bottom:10px;
+    .langs {
+        display: none;
+    }
+
+    .hero {
+        min-height: 740px;
+    }
+
+    .hero h1 {
+        font-size: 56px;
+    }
+
+    .hero-subtitle {
+        font-size: 9px;
+        letter-spacing: .18em;
+    }
+
+    .hero-description {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 43px;
+    }
+
+    .about-image {
+        height: 390px;
+    }
+
+    .stat {
+        padding: 30px 12px;
+    }
+
+    .stat-number {
+        font-size: 34px;
+    }
+
+    .stat-label {
+        font-size: 7px;
+        line-height: 1.5;
+    }
+
+    .choice-image {
+        min-height: 380px;
+    }
+
+    .choice-content {
+        padding: 50px 20px;
+    }
+
+    .choice-content h3 {
+        font-size: 42px;
+    }
+
+    .menu-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+
+        padding-bottom: 7px;
+
+        scrollbar-width: none;
+    }
+
+    .menu-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu-tab {
+        flex-shrink: 0;
+    }
+
+    .menu-item {
+        padding: 19px 0;
+        gap: 15px;
+    }
+
+    .menu-item-name {
+        font-size: 17px;
+    }
+
+    .menu-item-desc {
+        font-size: 10px;
+    }
+
+    .menu-price {
+        font-size: 12px;
+    }
+
+    .gallery-grid {
+        grid-template-rows:
+            250px
+            190px
+            190px;
+    }
+
+    .gallery-overlay span {
+        font-size: 8px;
+    }
+
+    .gallery-overlay strong {
+        font-size: 14px;
+    }
+
+    .experience {
+        padding: 100px 0;
+        background-attachment: scroll;
+    }
+
+    .experience h2 {
+        font-size: 50px;
+    }
+
+    .contact-value {
+        font-size: 20px;
+    }
+
+    .footer {
+        padding-bottom: 100px;
+    }
+
+    .footer-links {
+        gap: 30px;
+    }
+
+    .footer-column {
+        min-width: 110px;
+    }
+
+    .footer-bottom {
+        display: block;
+        line-height: 1.8;
     }
 }
 
@@ -1578,60 +1910,76 @@ body::before{
 
 <body>
 
-<!-- ======================================================
+<!-- =========================
      LOADER
-====================================================== -->
+========================= -->
 
 <div class="loader" id="loader">
     <div class="loader-inner">
         <div class="loader-logo">BAO</div>
         <div class="loader-line"></div>
+        <div class="loader-text">Sushi & Noodles Bar</div>
     </div>
 </div>
 
 
-<!-- ======================================================
+<!-- =========================
      HEADER
-====================================================== -->
+========================= -->
 
 <header class="header" id="header">
 
-    <div class="container nav">
+    <div class="container header-inner">
 
-        <a href="#home" class="logo">
-            BAO
-            <small>SUSHI · NOODLES · BAR</small>
+        <a href="#top" class="logo">
+
+            <div class="logo-mark">
+                <span>B</span>
+            </div>
+
+            <div class="logo-text">
+                <strong>BAO</strong>
+                <small>Sushi & Noodles Bar</small>
+            </div>
+
         </a>
 
-        <nav class="nav-links">
 
-            <a href="#about" data-i18n="nav.about">О ресторане</a>
-            <a href="#chef" data-i18n="nav.chef">Выбор шефа</a>
-            <a href="#menu" data-i18n="nav.menu">Меню</a>
-            <a href="#gallery" data-i18n="nav.gallery">Галерея</a>
-            <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
+        <nav class="nav">
+
+            <a href="#about" data-i18n="navAbout">О нас</a>
+            <a href="#menu" data-i18n="navMenu">Меню</a>
+            <a href="#gallery" data-i18n="navGallery">Галерея</a>
+            <a href="#experience" data-i18n="navExperience">Атмосфера</a>
+            <a href="#contacts" data-i18n="navContacts">Контакты</a>
 
         </nav>
 
-        <div class="nav-right">
 
-            <div class="languages">
+        <div class="header-right">
 
-                <button class="lang active" data-lang="ru">RU</button>
-                <button class="lang" data-lang="kz">KZ</button>
-                <button class="lang" data-lang="en">EN</button>
+            <div class="langs">
+
+                <button class="lang-btn active" data-lang="ru">RU</button>
+                <button class="lang-btn" data-lang="kz">KZ</button>
+                <button class="lang-btn" data-lang="en">EN</button>
 
             </div>
 
-            <a href="tel:+77081026904"
-               class="book-btn"
-               data-i18n="nav.book">
+            <a
+                href="tel:+77081026904"
+                class="book-btn"
+                data-i18n="book"
+            >
                 Забронировать
             </a>
 
             <button class="menu-toggle" id="menuToggle">
+
                 <span></span>
                 <span></span>
+                <span></span>
+
             </button>
 
         </div>
@@ -1641,86 +1989,95 @@ body::before{
 </header>
 
 
-<!-- ======================================================
+<!-- =========================
      MOBILE MENU
-====================================================== -->
+========================= -->
 
 <div class="mobile-menu" id="mobileMenu">
 
-    <div class="mobile-menu-links">
+    <nav class="mobile-nav">
 
-        <a href="#about" data-i18n="nav.about">О ресторане</a>
-        <a href="#chef" data-i18n="nav.chef">Выбор шефа</a>
-        <a href="#menu" data-i18n="nav.menu">Меню</a>
-        <a href="#gallery" data-i18n="nav.gallery">Галерея</a>
-        <a href="#contacts" data-i18n="nav.contacts">Контакты</a>
-
-    </div>
-
-    <div class="mobile-menu-bottom">
-
-        <div class="mobile-language">
-
-            <button class="lang active" data-lang="ru">RU</button>
-            <button class="lang" data-lang="kz">KZ</button>
-            <button class="lang" data-lang="en">EN</button>
-
-        </div>
-
-        <a href="tel:+77081026904"
-           class="primary-btn"
-           style="min-height:42px;"
-           data-i18n="nav.book">
-            Забронировать
+        <a href="#about" data-mobile-link data-i18n="navAbout">
+            О нас
         </a>
 
-    </div>
+        <a href="#menu" data-mobile-link data-i18n="navMenu">
+            Меню
+        </a>
+
+        <a href="#gallery" data-mobile-link data-i18n="navGallery">
+            Галерея
+        </a>
+
+        <a href="#experience" data-mobile-link data-i18n="navExperience">
+            Атмосфера
+        </a>
+
+        <a href="#contacts" data-mobile-link data-i18n="navContacts">
+            Контакты
+        </a>
+
+    </nav>
 
 </div>
 
 
-<!-- ======================================================
+<!-- =========================
      HERO
-====================================================== -->
+========================= -->
 
-<section class="hero" id="home">
+<main id="top">
+
+<section class="hero">
 
     <div class="hero-bg"></div>
 
     <div class="container">
 
-        <div class="hero-content reveal">
+        <div class="hero-content">
 
-            <div class="hero-mini">
-                BAO · ALMATY
+            <div class="hero-kicker" data-i18n="heroKicker">
+                ASIA IN THE CITY
             </div>
 
             <h1>
-                <span data-i18n="hero.line1">Вкус Азии.</span><br>
-                <em data-i18n="hero.line2">В центре Алматы.</em>
+                <span data-i18n="heroTitle1">Taste</span>
+                <br>
+                <em data-i18n="heroTitle2">Asia.</em>
             </h1>
 
-            <p class="hero-description"
-               data-i18n="hero.description">
-                Суши, рамен, WOK и паназиатская кухня
-                в атмосфере современного Алматы.
-                Место для ужинов, встреч и красивых вечеров.
+            <div
+                class="hero-subtitle"
+                data-i18n="heroSubtitle"
+            >
+                BAO SUSHI & NOODLES BAR · ALMATY
+            </div>
+
+            <p
+                class="hero-description"
+                data-i18n="heroDescription"
+            >
+                Современная азиатская кухня, яркие вкусы
+                и атмосфера большого города.
             </p>
 
             <div class="hero-actions">
 
-                <a href="#menu"
-                   class="primary-btn"
-                   data-i18n="hero.menu">
+                <a
+                    href="#menu"
+                    class="btn btn-primary"
+                    data-i18n="heroMenu"
+                >
                     Смотреть меню
                 </a>
 
-                <a href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
-                   target="_blank"
-                   rel="noopener"
-                   class="secondary-btn"
-                   data-i18n="hero.map">
-                    Открыть BAO в 2GIS
+                <a
+                    href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
+                    target="_blank"
+                    class="btn btn-outline"
+                    data-i18n="heroMap"
+                >
+                    Открыть в 2GIS
                 </a>
 
             </div>
@@ -1729,23 +2086,23 @@ body::before{
 
     </div>
 
+
     <div class="hero-bottom">
 
-        <div class="container hero-meta">
+        <div class="container hero-bottom-inner">
 
-            <div class="hero-address">
+            <div class="scroll-down">
 
-                <span class="hero-address-dot"></span>
+                <span class="scroll-line"></span>
 
-                <span data-i18n="hero.location">
-                    Толе би, 181 · Assem Plaza
+                <span data-i18n="scroll">
+                    Листайте вниз
                 </span>
 
             </div>
 
-            <div class="hero-scroll">
-                <span data-i18n="hero.scroll">Листайте</span>
-                <span></span>
+            <div class="scroll-down">
+                ALMATY · KZ
             </div>
 
         </div>
@@ -1755,79 +2112,110 @@ body::before{
 </section>
 
 
-<!-- ======================================================
+<!-- =========================
      MARQUEE
-====================================================== -->
+========================= -->
 
 <div class="marquee">
 
     <div class="marquee-track">
 
-        <div class="marquee-item">
-            SUSHI <b>✦</b> NOODLES <b>✦</b> WOK <b>✦</b> ASIAN CUISINE <b>✦</b>
-        </div>
+        <div class="marquee-item">Sushi</div>
+        <div class="marquee-item">Noodles</div>
+        <div class="marquee-item">WOK</div>
+        <div class="marquee-item">Ramen</div>
+        <div class="marquee-item">Asia</div>
+        <div class="marquee-item">BAO</div>
 
-        <div class="marquee-item">
-            BAO ALMATY <b>✦</b> SUSHI <b>✦</b> NOODLES <b>✦</b> WOK <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-            SUSHI <b>✦</b> NOODLES <b>✦</b> WOK <b>✦</b> ASIAN CUISINE <b>✦</b>
-        </div>
-
-        <div class="marquee-item">
-            BAO ALMATY <b>✦</b> SUSHI <b>✦</b> NOODLES <b>✦</b> WOK <b>✦</b>
-        </div>
+        <div class="marquee-item">Sushi</div>
+        <div class="marquee-item">Noodles</div>
+        <div class="marquee-item">WOK</div>
+        <div class="marquee-item">Ramen</div>
+        <div class="marquee-item">Asia</div>
+        <div class="marquee-item">BAO</div>
 
     </div>
 
 </div>
 
 
-<!-- ======================================================
+<!-- =========================
      ABOUT
-====================================================== -->
+========================= -->
 
 <section class="section" id="about">
 
     <div class="container">
 
+        <div class="section-head reveal">
+
+            <div>
+
+                <span
+                    class="eyebrow"
+                    data-i18n="aboutEyebrow"
+                >
+                    ABOUT BAO
+                </span>
+
+                <h2 class="section-title">
+                    Городская Азия<br>
+                    <em>в твоём ритме.</em>
+                </h2>
+
+            </div>
+
+            <p
+                class="section-text"
+                data-i18n="aboutIntro"
+            >
+                BAO — место, где азиатская кухня встречается
+                с современным городским стилем.
+            </p>
+
+        </div>
+
+
         <div class="about-grid">
 
-            <div class="about-photo reveal">
+            <div class="about-image reveal">
 
                 <img
                     src="https://almaty.ppz.kz/upload/iblock/0d7/mv1jfq08a1l6maue2cq3lj0dua8ix50d.jpg"
-                    alt="BAO Sushi & Noodles Bar Almaty"
-                    loading="lazy">
-
-                <div class="about-number">
-                    01 / BAO
-                </div>
+                    alt="BAO Sushi & Noodles Bar"
+                    loading="lazy"
+                >
 
             </div>
 
-            <div class="about-copy reveal delay1">
 
-                <div class="section-kicker"
-                     data-i18n="about.kicker">
-                    О BAO
-                </div>
+            <div class="about-content reveal">
 
-                <h2 class="section-title"
-                    data-i18n="about.title">
-                    Не просто<br>ужин.
-                </h2>
-
-                <p data-i18n="about.text">
-                    BAO — современное пространство с характером Азии.
-                    Яркие вкусы, суши, рамен, WOK и авторские сочетания
-                    встречаются здесь с эстетикой большого города.
+                <p data-i18n="aboutText1">
+                    BAO noodles & sushi bar — современное
+                    городское кафе с азиатской кухней,
+                    созданное для тех, кто любит яркие
+                    вкусы и свободную атмосферу.
                 </p>
 
-                <div class="about-quote"
-                     data-i18n="about.quote">
-                    Хорошая еда — это повод задержаться ещё на один вечер.
+                <p data-i18n="aboutText2">
+                    Здесь встречаются японские суши,
+                    паназиатский WOK, ароматный рамен,
+                    поке и блюда, которые хочется
+                    заказывать снова.
+                </p>
+
+                <p data-i18n="aboutText3">
+                    Заглядывай на быстрый обед,
+                    вечер с друзьями или просто за
+                    любимым блюдом BAO.
+                </p>
+
+                <div
+                    class="about-signature"
+                    data-i18n="aboutSignature"
+                >
+                    Taste Asia.
                 </div>
 
             </div>
@@ -1839,58 +2227,65 @@ body::before{
 </section>
 
 
-<!-- ======================================================
+<!-- =========================
      STATS
-====================================================== -->
+========================= -->
 
-<section class="section-soft" style="padding:0;">
+<section class="stats">
 
-    <div class="container">
+    <div class="container stats-grid">
 
-        <div class="stats">
+        <div class="stat reveal">
 
-            <div class="stat reveal">
+            <div class="stat-number">4.9</div>
 
-                <div class="stat-number">4.9</div>
-
-                <div class="stat-label"
-                     data-i18n="stats.rating">
-                    Рейтинг гостей
-                </div>
-
+            <div
+                class="stat-label"
+                data-i18n="statRating"
+            >
+                Рейтинг
             </div>
 
-            <div class="stat reveal delay1">
+        </div>
 
-                <div class="stat-number">120</div>
 
-                <div class="stat-label"
-                     data-i18n="stats.seats">
-                    Посадочных мест
-                </div>
+        <div class="stat reveal">
 
+            <div class="stat-number">2878+</div>
+
+            <div
+                class="stat-label"
+                data-i18n="statReviews"
+            >
+                Отзывов
             </div>
 
-            <div class="stat reveal delay2">
+        </div>
 
-                <div class="stat-number">12—00</div>
 
-                <div class="stat-label"
-                     data-i18n="stats.hours">
-                    Каждый день
-                </div>
+        <div class="stat reveal">
 
+            <div class="stat-number">120</div>
+
+            <div
+                class="stat-label"
+                data-i18n="statSeats"
+            >
+                Посадочных мест
             </div>
 
-            <div class="stat reveal delay3">
+        </div>
 
-                <div class="stat-number">₸8K</div>
 
-                <div class="stat-label"
-                     data-i18n="stats.check">
-                    Средний чек
-                </div>
+        <div class="stat reveal">
 
+            <div class="stat-number">8000 ₸</div>
+
+            <div
+                class="stat-label"
+                data-i18n="statCheck"
+            >
+                Средний чек
             </div>
 
         </div>
@@ -1900,407 +2295,67 @@ body::before{
 </section>
 
 
-<!-- ======================================================
+<!-- =========================
      CHEF CHOICE
-====================================================== -->
+========================= -->
 
-<section class="section chef" id="chef">
+<section class="section chef-choice">
 
     <div class="container">
 
-        <div class="chef-grid">
+        <div class="choice-grid">
 
-            <div class="chef-photo reveal">
+            <div class="choice-image reveal">
 
                 <img
                     src="https://almaty.ppz.kz/upload/iblock/ff0/honbko3uwsrs8ter44csr4qn6k83qup6.jpg"
-                    alt="BAO Almaty"
-                    loading="lazy">
+                    alt="BAO Asian cuisine"
+                    loading="lazy"
+                >
 
             </div>
 
-            <div class="chef-copy reveal delay1">
 
-                <div class="chef-label"
-                     data-i18n="chef.label">
-                    ВЫБОР BAO
+            <div class="choice-content reveal">
+
+                <div
+                    class="choice-number"
+                    data-i18n="choiceNumber"
+                >
+                    BAO / 01
                 </div>
 
-                <div class="chef-line"></div>
+                <h3>
+                    <span data-i18n="choiceTitle1">
+                        Любимые
+                    </span>
+                    <br>
+                    <em data-i18n="choiceTitle2">
+                        вкусы.
+                    </em>
+                </h3>
 
-                <h2 class="chef-title"
-                    data-i18n="chef.title">
-                    Вечер<br>со вкусом.
-                </h2>
-
-                <p class="chef-text"
-                   data-i18n="chef.text">
-                    Начните с любимого рамена, добавьте роллы
-                    и оставьте место для десерта.
-                    BAO создан для того, чтобы собираться вместе.
+                <p data-i18n="choiceText">
+                    От насыщенного рамена и острого
+                    WOK до нежных роллов и десертов —
+                    собирай свой идеальный вечер в BAO.
                 </p>
 
-                <a href="#menu"
-                   class="primary-btn"
-                   style="width:max-content;"
-                   data-i18n="chef.button">
-                    Смотреть меню
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ======================================================
-     MENU
-====================================================== -->
-
-<section class="section menu-section" id="menu">
-
-    <div class="container">
-
-        <div class="section-head reveal">
-
-            <div>
-
-                <div class="section-kicker"
-                     data-i18n="menu.kicker">
-                    МЕНЮ
+                <div
+                    class="choice-price"
+                    data-i18n="choicePrice"
+                >
+                    от 1070 ₸
                 </div>
 
-                <h2 class="section-title"
-                    data-i18n="menu.title">
-                    Выбирайте своё.
-                </h2>
-
-            </div>
-
-            <p class="section-description"
-               data-i18n="menu.description">
-                Паназиатские вкусы — от рамена и WOK
-                до роллов, поке и десертов.
-            </p>
-
-        </div>
-
-        <div class="menu-tabs" id="menuTabs"></div>
-
-        <div class="menu-grid" id="menuGrid"></div>
-
-    </div>
-
-</section>
-
-
-<!-- ======================================================
-     GALLERY
-====================================================== -->
-
-<section class="section gallery" id="gallery">
-
-    <div class="container">
-
-        <div class="section-head reveal">
-
-            <div>
-
-                <div class="section-kicker"
-                     data-i18n="gallery.kicker">
-                    АТМОСФЕРА
-                </div>
-
-                <h2 class="section-title"
-                    data-i18n="gallery.title">
-                    BAO изнутри.
-                </h2>
-
-            </div>
-
-            <p class="section-description"
-               data-i18n="gallery.description">
-                Тёмный интерьер, мягкий свет и пространство
-                для спокойного вечера в центре Алматы.
-            </p>
-
-        </div>
-
-        <div class="gallery-grid">
-
-            <div class="gallery-item reveal">
-
-                <img
-                    src="https://almaty.ppz.kz/upload/iblock/013/jgt0zfwrk08bcxrxalsqoylsiet4mgkn.jpg"
-                    alt="BAO Almaty"
-                    loading="lazy">
-
-                <span class="gallery-caption">
-                    BAO · ALMATY
-                </span>
-
-            </div>
-
-            <div class="gallery-item reveal delay1">
-
-                <img
-                    src="https://almaty.ppz.kz/upload/iblock/eef/8vx7i34qprzs9rnz5mg2qoejjt5mo9b6.jpg"
-                    alt="BAO interior"
-                    loading="lazy">
-
-                <span class="gallery-caption"
-                      data-i18n="gallery.interior">
-                    ИНТЕРЬЕР
-                </span>
-
-            </div>
-
-            <div class="gallery-item reveal delay2">
-
-                <img
-                    src="https://almaty.ppz.kz/upload/iblock/ff0/honbko3uwsrs8ter44csr4qn6k83qup6.jpg"
-                    alt="BAO restaurant"
-                    loading="lazy">
-
-                <span class="gallery-caption">
-                    BAO
-                </span>
-
-            </div>
-
-            <div class="gallery-item reveal delay1">
-
-                <img
-                    src="https://almaty.ppz.kz/upload/iblock/0d7/mv1jfq08a1l6maue2cq3lj0dua8ix50d.jpg"
-                    alt="BAO atmosphere"
-                    loading="lazy">
-
-                <span class="gallery-caption"
-                      data-i18n="gallery.atmosphere">
-                    АТМОСФЕРА
-                </span>
-
-            </div>
-
-            <div class="gallery-item reveal delay2">
-
-                <img
-                    src="https://almaty.ppz.kz/upload/iblock/c26/pb2h087uedc9lssvz88c2raf7wz5cok6.jpg"
-                    alt="BAO Almaty"
-                    loading="lazy">
-
-                <span class="gallery-caption">
-                    ALMATY
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ======================================================
-     EXPERIENCE
-====================================================== -->
-
-<section class="experience">
-
-    <div class="experience-bg"></div>
-
-    <div class="container">
-
-        <div class="experience-content reveal">
-
-            <div class="section-kicker"
-                 data-i18n="experience.kicker">
-                ВАШ ВЕЧЕР
-            </div>
-
-            <h2 class="section-title"
-                data-i18n="experience.title">
-                Вечер начинается с BAO.
-            </h2>
-
-            <p data-i18n="experience.text">
-                Приходите на ужин, встречу с друзьями
-                или просто за любимым раменом.
-                Забронируйте стол заранее.
-            </p>
-
-            <div class="hero-actions">
-
-                <a href="tel:+77081026904"
-                   class="primary-btn"
-                   data-i18n="experience.book">
-                    Забронировать стол
-                </a>
-
-                <a href="https://2gis.kz/almaty/routeSearch/rsType/car/to/70000001055870972"
-                   target="_blank"
-                   rel="noopener"
-                   class="secondary-btn"
-                   data-i18n="experience.map">
-                    Как добраться
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ======================================================
-     CONTACTS
-====================================================== -->
-
-<section class="section" id="contacts">
-
-    <div class="container">
-
-        <div class="section-head reveal">
-
-            <div>
-
-                <div class="section-kicker"
-                     data-i18n="contacts.kicker">
-                    КОНТАКТЫ
-                </div>
-
-                <h2 class="section-title"
-                    data-i18n="contacts.title">
-                    Ждём вас.
-                </h2>
-
-            </div>
-
-            <p class="section-description"
-               data-i18n="contacts.description">
-                BAO находится в Assem Plaza
-                на Толе би, 181.
-            </p>
-
-        </div>
-
-        <div class="contact-grid">
-
-            <div class="contact-list reveal">
-
-                <div class="contact-item">
-
-                    <div class="contact-label"
-                         data-i18n="contacts.address.label">
-                        Адрес
-                    </div>
-
-                    <div class="contact-value"
-                         data-i18n="contacts.address.value">
-                        Алматы, Толе би, 181<br>
-                        ЖК Assem Plaza
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <div class="contact-label"
-                         data-i18n="contacts.phone.label">
-                        Телефон
-                    </div>
-
-                    <div class="contact-value">
-                        <a href="tel:+77081026904">
-                            +7 708 102 69 04
-                        </a>
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <div class="contact-label"
-                         data-i18n="contacts.hours.label">
-                        Работаем
-                    </div>
-
-                    <div class="contact-value"
-                         data-i18n="contacts.hours.value">
-                        Ежедневно · 12:00 — 00:00
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <div class="contact-label">
-                        Instagram
-                    </div>
-
-                    <div class="contact-value">
-                        <a href="https://www.instagram.com/bao_kz"
-                           target="_blank"
-                           rel="noopener">
-                            @bao_kz
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="map-card reveal delay1">
-
-                <div class="map-lines"></div>
-
-                <div class="map-content">
-
-                    <div class="map-ring">
-
-                        <div class="map-pin">
-
-                            <svg width="23"
-                                 height="23"
-                                 viewBox="0 0 24 24"
-                                 fill="none">
-
-                                <path
-                                    d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"/>
-
-                                <circle
-                                    cx="12"
-                                    cy="9"
-                                    r="2.2"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"/>
-
-                            </svg>
-
-                        </div>
-
-                    </div>
-
-                    <h3>BAO</h3>
-
-                    <p>
-                        Толе би, 181 · Assem Plaza
-                    </p>
-
-                    <a href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
-                       target="_blank"
-                       rel="noopener"
-                       class="primary-btn"
-                       data-i18n="contacts.map">
-                        Открыть BAO в 2GIS
+                <div style="margin-top:30px">
+
+                    <a
+                        href="#menu"
+                        class="btn btn-outline"
+                        data-i18n="choiceButton"
+                    >
+                        Смотреть меню
                     </a>
 
                 </div>
@@ -2314,9 +2369,450 @@ body::before{
 </section>
 
 
-<!-- ======================================================
+<!-- =========================
+     MENU
+========================= -->
+
+<section class="section menu-section" id="menu">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span
+                    class="eyebrow"
+                    data-i18n="menuEyebrow"
+                >
+                    MENU
+                </span>
+
+                <h2 class="section-title">
+                    Выбирай<br>
+                    <em>своё.</em>
+                </h2>
+
+            </div>
+
+            <p
+                class="section-text"
+                data-i18n="menuText"
+            >
+                Рамен, суши, WOK, поке, бургеры,
+                салаты и десерты — всё самое любимое
+                из азиатской кухни.
+            </p>
+
+        </div>
+
+
+        <div
+            class="menu-tabs"
+            id="menuTabs"
+        ></div>
+
+
+        <div
+            class="menu-list"
+            id="menuList"
+        ></div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GALLERY
+========================= -->
+
+<section class="gallery-section" id="gallery">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span
+                    class="eyebrow"
+                    data-i18n="galleryEyebrow"
+                >
+                    BAO MOMENTS
+                </span>
+
+                <h2 class="section-title">
+                    Атмосфера <em>BAO</em>
+                </h2>
+
+            </div>
+
+            <p
+                class="section-text"
+                data-i18n="galleryText"
+            >
+                Настоящие моменты из BAO —
+                от вывески и упаковки до любимых
+                блюд и нашего приложения.
+            </p>
+
+        </div>
+
+
+        <div class="gallery-grid">
+
+
+            <!-- 01 — ВЫВЕСКА -->
+
+            <div class="gallery-item gallery-main reveal">
+
+                <img
+                    src="https://i.ibb.co.com/bMnRLnpL/IMG-2123.jpg"
+                    alt="Вывеска BAO Sushi & Noodles Bar"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay">
+
+                    <span>01</span>
+
+                    <strong data-i18n="gallerySign">
+                        Вывеска BAO
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- 02 — УПАКОВКА -->
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://i.ibb.co.com/B2L01VPC/IMG-2120.jpg"
+                    alt="Упаковка BAO"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay">
+
+                    <span>02</span>
+
+                    <strong data-i18n="galleryPackaging">
+                        Упаковка BAO
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- 03 — СУШИ -->
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://i.ibb.co.com/sdXgfM8b/IMG-2119.jpg"
+                    alt="Суши BAO"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay">
+
+                    <span>03</span>
+
+                    <strong data-i18n="gallerySushi">
+                        Суши
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- 04 — ПИЦЦА -->
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://i.ibb.co.com/xtQj6cR0/IMG-2118.jpg"
+                    alt="Пицца BAO"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay">
+
+                    <span>04</span>
+
+                    <strong data-i18n="galleryPizza">
+                        Пицца
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- 05 — ПРИЛОЖЕНИЕ -->
+
+            <div class="gallery-item reveal">
+
+                <img
+                    src="https://i.ibb.co.com/SXL4V6LN/IMG-2115.jpg"
+                    alt="Приложение BAO"
+                    loading="lazy"
+                >
+
+                <div class="gallery-overlay">
+
+                    <span>05</span>
+
+                    <strong data-i18n="galleryApp">
+                        Приложение BAO
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     EXPERIENCE
+========================= -->
+
+<section class="experience" id="experience">
+
+    <div class="container">
+
+        <div class="experience-content reveal">
+
+            <span
+                class="eyebrow"
+                data-i18n="experienceEyebrow"
+            >
+                COME TO BAO
+            </span>
+
+            <h2>
+                Твой вечер.<br>
+                <em>Твоя Азия.</em>
+            </h2>
+
+            <p data-i18n="experienceText">
+                Забегай на Толе би, 181 — в Assem Plaza.
+                Встречайся с друзьями, пробуй новые вкусы
+                или просто бери любимый рамен.
+            </p>
+
+            <div style="margin-top:35px">
+
+                <a
+                    href="https://2gis.kz/almaty/routeSearch/rsType/car/to/70000001055870972"
+                    target="_blank"
+                    class="btn btn-primary"
+                    data-i18n="routeButton"
+                >
+                    Как добраться
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACTS
+========================= -->
+
+<section class="section contacts" id="contacts">
+
+    <div class="container">
+
+        <div class="section-head reveal">
+
+            <div>
+
+                <span
+                    class="eyebrow"
+                    data-i18n="contactsEyebrow"
+                >
+                    CONTACTS
+                </span>
+
+                <h2 class="section-title">
+                    Найди<br>
+                    <em>BAO.</em>
+                </h2>
+
+            </div>
+
+            <p
+                class="section-text"
+                data-i18n="contactsText"
+            >
+                Мы ждём тебя в Assem Plaza
+                на Толе би.
+            </p>
+
+        </div>
+
+
+        <div class="contact-grid">
+
+
+            <div class="contact-info reveal">
+
+
+                <div class="contact-card">
+
+                    <span
+                        class="contact-label"
+                        data-i18n="addressLabel"
+                    >
+                        Адрес
+                    </span>
+
+                    <div class="contact-value small">
+                        ЖК Assem Plaza,<br>
+                        ул. Толе би, 181,<br>
+                        Алматы
+                    </div>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <span
+                        class="contact-label"
+                        data-i18n="phoneLabel"
+                    >
+                        Телефон
+                    </span>
+
+                    <a
+                        href="tel:+77081026904"
+                        class="contact-value"
+                    >
+                        +7 708 102 69 04
+                    </a>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <span
+                        class="contact-label"
+                        data-i18n="hoursLabel"
+                    >
+                        Работаем
+                    </span>
+
+                    <div class="contact-value small">
+                        <span data-i18n="hoursText">
+                            Ежедневно
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="contact-card">
+
+                    <span
+                        class="contact-label"
+                        data-i18n="socialLabel"
+                    >
+                        Соцсети
+                    </span>
+
+                    <a
+                        href="https://www.instagram.com/bao_kz"
+                        target="_blank"
+                        class="contact-value"
+                    >
+                        @bao_kz
+                    </a>
+
+                </div>
+
+
+                <div class="contact-actions">
+
+                    <a
+                        href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
+                        target="_blank"
+                        class="btn btn-primary"
+                        data-i18n="mapButton"
+                    >
+                        Открыть 2GIS
+                    </a>
+
+                    <a
+                        href="https://www.instagram.com/bao_kz"
+                        target="_blank"
+                        class="btn btn-outline"
+                    >
+                        Instagram
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="map reveal">
+
+                <div class="map-content">
+
+                    <div class="map-pin"></div>
+
+                    <h3>BAO</h3>
+
+                    <p>
+                        Толе би, 181 · Assem Plaza
+                    </p>
+
+                    <a
+                        href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
+                        target="_blank"
+                        class="map-link"
+                        data-i18n="mapLink"
+                    >
+                        Открыть карту
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
      FOOTER
-====================================================== -->
+========================= -->
 
 <footer class="footer">
 
@@ -2324,96 +2820,123 @@ body::before{
 
         <div class="footer-top">
 
-            <div>
 
-                <div class="footer-logo">
-                    BAO
+            <div class="footer-brand">
+
+                <div class="logo">
+
+                    <div class="logo-mark">
+                        <span>B</span>
+                    </div>
+
+                    <div class="logo-text">
+                        <strong>BAO</strong>
+                        <small>Sushi & Noodles Bar</small>
+                    </div>
+
                 </div>
 
-                <div class="footer-tag">
-                    Sushi · Noodles · Bar · Almaty
-                </div>
+
+                <p
+                    class="footer-description"
+                    data-i18n="footerDescription"
+                >
+                    Современная азиатская кухня
+                    в центре Алматы.
+                </p>
 
             </div>
+
 
             <div class="footer-links">
 
-                <a href="#about" data-i18n="nav.about">
-                    О ресторане
-                </a>
 
-                <a href="#menu" data-i18n="nav.menu">
-                    Меню
-                </a>
+                <div class="footer-column">
 
-                <a href="#gallery" data-i18n="nav.gallery">
-                    Галерея
-                </a>
+                    <h4 data-i18n="footerNavigation">
+                        Навигация
+                    </h4>
 
-                <a href="#contacts" data-i18n="nav.contacts">
-                    Контакты
-                </a>
+                    <a
+                        href="#about"
+                        data-i18n="navAbout"
+                    >
+                        О нас
+                    </a>
 
-            </div>
+                    <a
+                        href="#menu"
+                        data-i18n="navMenu"
+                    >
+                        Меню
+                    </a>
 
-            <div class="footer-social">
+                    <a
+                        href="#gallery"
+                        data-i18n="navGallery"
+                    >
+                        Галерея
+                    </a>
 
-                <a href="https://www.instagram.com/bao_kz"
-                   target="_blank"
-                   rel="noopener"
-                   class="social"
-                   aria-label="Instagram">
+                    <a
+                        href="#contacts"
+                        data-i18n="navContacts"
+                    >
+                        Контакты
+                    </a>
 
-                    <svg width="16"
-                         height="16"
-                         viewBox="0 0 24 24"
-                         fill="none">
+                </div>
 
-                        <rect x="3"
-                              y="3"
-                              width="18"
-                              height="18"
-                              rx="5"
-                              stroke="currentColor"
-                              stroke-width="1.5"/>
 
-                        <circle cx="12"
-                                cy="12"
-                                r="4"
-                                stroke="currentColor"
-                                stroke-width="1.5"/>
+                <div class="footer-column">
 
-                        <circle cx="17.5"
-                                cy="6.5"
-                                r="1"
-                                fill="currentColor"/>
+                    <h4 data-i18n="footerFollow">
+                        Следите
+                    </h4>
 
-                    </svg>
+                    <a
+                        href="https://www.instagram.com/bao_kz"
+                        target="_blank"
+                    >
+                        Instagram
+                    </a>
 
-                </a>
+                    <a
+                        href="tel:+77081026904"
+                    >
+                        Phone
+                    </a>
 
-                <a href="tel:+77081026904"
-                   class="social"
-                   aria-label="Phone">
+                </div>
 
-                    <svg width="16"
-                         height="16"
-                         viewBox="0 0 24 24"
-                         fill="none">
 
-                        <path
-                            d="M5 4h3l2 5-2 1.5c1 2.1 2.4 3.5 4.5 4.5L14 13l5 2v3c0 1.1-.9 2-2 2C9.8 20 4 14.2 4 7c0-1.7.4-3 1-3Z"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            stroke-linejoin="round"/>
+                <div class="footer-column">
 
-                    </svg>
+                    <h4 data-i18n="footerVisit">
+                        Посетить
+                    </h4>
 
-                </a>
+                    <a
+                        href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
+                        target="_blank"
+                    >
+                        2GIS
+                    </a>
+
+                    <a
+                        href="https://baofood.kz/restaurant"
+                        target="_blank"
+                    >
+                        BAO Website
+                    </a>
+
+                </div>
+
 
             </div>
 
         </div>
+
 
         <div class="footer-bottom">
 
@@ -2421,8 +2944,8 @@ body::before{
                 © 2026 BAO Sushi & Noodles Bar
             </span>
 
-            <span>
-                Almaty · Kazakhstan
+            <span data-i18n="footerMade">
+                Taste Asia.
             </span>
 
         </div>
@@ -2432,45 +2955,48 @@ body::before{
 </footer>
 
 
-<!-- ======================================================
+<!-- =========================
      LIGHTBOX
-====================================================== -->
+========================= -->
 
 <div class="lightbox" id="lightbox">
 
-    <button class="lightbox-close" id="lightboxClose">
+    <button
+        class="lightbox-close"
+        id="lightboxClose"
+        aria-label="Close"
+    >
         ×
     </button>
 
-    <img id="lightboxImage"
-         src=""
-         alt="BAO">
+    <img
+        id="lightboxImage"
+        src=""
+        alt=""
+    >
 
 </div>
 
 
-<!-- ======================================================
+<!-- =========================
      MOBILE BAR
-====================================================== -->
+========================= -->
 
 <div class="mobile-bar">
 
-    <a href="#menu"
-       class="active"
-       data-i18n="mobile.menu">
-        Меню
+    <a
+        href="tel:+77081026904"
+        data-i18n="mobileCall"
+    >
+        ☎ Позвонить
     </a>
 
-    <a href="tel:+77081026904"
-       data-i18n="mobile.call">
-        Позвонить
-    </a>
-
-    <a href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
-       target="_blank"
-       rel="noopener"
-       data-i18n="mobile.map">
-        2GIS
+    <a
+        href="https://2gis.kz/almaty/gallery/firm/70000001055870972"
+        target="_blank"
+        data-i18n="mobileMap"
+    >
+        ⌖ 2GIS
     </a>
 
 </div>
@@ -2478,893 +3004,1046 @@ body::before{
 
 <script>
 
-/* =========================================================
+/* =========================
+   LOADER
+========================= */
+
+function hideLoader() {
+
+    const loader = document.getElementById("loader");
+
+    if (loader) {
+        loader.classList.add("hide");
+    }
+
+}
+
+window.addEventListener("load", () => {
+    setTimeout(hideLoader, 400);
+});
+
+setTimeout(hideLoader, 3500);
+
+
+/* =========================
    TRANSLATIONS
-========================================================= */
+========================= */
 
 const translations = {
 
-ru:{
+    ru: {
 
-"nav.about":"О ресторане",
-"nav.chef":"Выбор шефа",
-"nav.menu":"Меню",
-"nav.gallery":"Галерея",
-"nav.contacts":"Контакты",
-"nav.book":"Забронировать",
+        navAbout: "О нас",
+        navMenu: "Меню",
+        navGallery: "Галерея",
+        navExperience: "Атмосфера",
+        navContacts: "Контакты",
 
-"hero.line1":"Вкус Азии.",
-"hero.line2":"В центре Алматы.",
-"hero.description":"Суши, рамен, WOK и паназиатская кухня в атмосфере современного Алматы. Место для ужинов, встреч и красивых вечеров.",
-"hero.menu":"Смотреть меню",
-"hero.map":"Открыть BAO в 2GIS",
-"hero.location":"Толе би, 181 · Assem Plaza",
-"hero.scroll":"Листайте",
+        book: "Забронировать",
 
-"about.kicker":"О BAO",
-"about.title":"Не просто<br>ужин.",
-"about.text":"BAO — современное пространство с характером Азии. Яркие вкусы, суши, рамен, WOK и авторские сочетания встречаются здесь с эстетикой большого города.",
-"about.quote":"Хорошая еда — это повод задержаться ещё на один вечер.",
+        heroKicker: "ASIA IN THE CITY",
+        heroTitle1: "Taste",
+        heroTitle2: "Asia.",
+        heroSubtitle: "BAO SUSHI & NOODLES BAR · ALMATY",
+        heroDescription:
+            "Современная азиатская кухня, яркие вкусы и атмосфера большого города.",
+        heroMenu: "Смотреть меню",
+        heroMap: "Открыть в 2GIS",
+        scroll: "Листайте вниз",
 
-"stats.rating":"Рейтинг гостей",
-"stats.seats":"Посадочных мест",
-"stats.hours":"Каждый день",
-"stats.check":"Средний чек",
+        aboutEyebrow: "ABOUT BAO",
+        aboutIntro:
+            "BAO — место, где азиатская кухня встречается с современным городским стилем.",
+        aboutText1:
+            "BAO noodles & sushi bar — современное городское кафе с азиатской кухней, созданное для тех, кто любит яркие вкусы и свободную атмосферу.",
+        aboutText2:
+            "Здесь встречаются японские суши, паназиатский WOK, ароматный рамен, поке и блюда, которые хочется заказывать снова.",
+        aboutText3:
+            "Заглядывай на быстрый обед, вечер с друзьями или просто за любимым блюдом BAO.",
+        aboutSignature: "Taste Asia.",
 
-"chef.label":"ВЫБОР BAO",
-"chef.title":"Вечер<br>со вкусом.",
-"chef.text":"Начните с любимого рамена, добавьте роллы и оставьте место для десерта. BAO создан для того, чтобы собираться вместе.",
-"chef.button":"Смотреть меню",
+        statRating: "Рейтинг",
+        statReviews: "Отзывов",
+        statSeats: "Посадочных мест",
+        statCheck: "Средний чек",
 
-"menu.kicker":"МЕНЮ",
-"menu.title":"Выбирайте своё.",
-"menu.description":"Паназиатские вкусы — от рамена и WOK до роллов, поке и десертов.",
+        choiceNumber: "BAO / 01",
+        choiceTitle1: "Любимые",
+        choiceTitle2: "вкусы.",
+        choiceText:
+            "От насыщенного рамена и острого WOK до нежных роллов и десертов — собирай свой идеальный вечер в BAO.",
+        choicePrice: "от 1070 ₸",
+        choiceButton: "Смотреть меню",
 
-"gallery.kicker":"АТМОСФЕРА",
-"gallery.title":"BAO изнутри.",
-"gallery.description":"Тёмный интерьер, мягкий свет и пространство для спокойного вечера в центре Алматы.",
-"gallery.interior":"ИНТЕРЬЕР",
-"gallery.atmosphere":"АТМОСФЕРА",
+        menuEyebrow: "MENU",
+        menuText:
+            "Рамен, суши, WOK, поке, бургеры, салаты и десерты — всё самое любимое из азиатской кухни.",
 
-"experience.kicker":"ВАШ ВЕЧЕР",
-"experience.title":"Вечер начинается с BAO.",
-"experience.text":"Приходите на ужин, встречу с друзьями или просто за любимым раменом. Забронируйте стол заранее.",
-"experience.book":"Забронировать стол",
-"experience.map":"Как добраться",
+        galleryEyebrow: "BAO MOMENTS",
+        galleryText:
+            "Настоящие моменты из BAO — от вывески и упаковки до любимых блюд и нашего приложения.",
+        gallerySign: "Вывеска BAO",
+        galleryPackaging: "Упаковка BAO",
+        gallerySushi: "Суши",
+        galleryPizza: "Пицца",
+        galleryApp: "Приложение BAO",
 
-"contacts.kicker":"КОНТАКТЫ",
-"contacts.title":"Ждём вас.",
-"contacts.description":"BAO находится в Assem Plaza на Толе би, 181.",
-"contacts.address.label":"Адрес",
-"contacts.address.value":"Алматы, Толе би, 181<br>ЖК Assem Plaza",
-"contacts.phone.label":"Телефон",
-"contacts.hours.label":"Работаем",
-"contacts.hours.value":"Ежедневно · 12:00 — 00:00",
-"contacts.map":"Открыть BAO в 2GIS",
+        experienceEyebrow: "COME TO BAO",
+        experienceText:
+            "Забегай на Толе би, 181 — в Assem Plaza. Встречайся с друзьями, пробуй новые вкусы или просто бери любимый рамен.",
+        routeButton: "Как добраться",
 
-"mobile.menu":"Меню",
-"mobile.call":"Позвонить",
-"mobile.map":"2GIS"
+        contactsEyebrow: "CONTACTS",
+        contactsText:
+            "Мы ждём тебя в Assem Plaza на Толе би.",
 
-},
+        addressLabel: "Адрес",
+        phoneLabel: "Телефон",
+        hoursLabel: "Работаем",
+        hoursText: "Ежедневно",
+        socialLabel: "Соцсети",
+        mapButton: "Открыть 2GIS",
+        mapLink: "Открыть карту",
 
-kz:{
+        footerDescription:
+            "Современная азиатская кухня в центре Алматы.",
+        footerNavigation: "Навигация",
+        footerFollow: "Следите",
+        footerVisit: "Посетить",
+        footerMade: "Taste Asia.",
 
-"nav.about":"Мейрамхана",
-"nav.chef":"BAO таңдауы",
-"nav.menu":"Мәзір",
-"nav.gallery":"Галерея",
-"nav.contacts":"Байланыс",
-"nav.book":"Үстел брондау",
+        mobileCall: "☎ Позвонить",
+        mobileMap: "⌖ 2GIS"
 
-"hero.line1":"Азияның дәмі.",
-"hero.line2":"Алматының ортасында.",
-"hero.description":"Суши, рамен, WOK және паназиялық асүй — заманауи Алматы атмосферасында. Кездесулер мен ерекше кештер үшін.",
-"hero.menu":"Мәзірді көру",
-"hero.map":"BAO-ны 2GIS-тен ашу",
-"hero.location":"Төле би, 181 · Assem Plaza",
-"hero.scroll":"Төмен сырғытыңыз",
-
-"about.kicker":"BAO ТУРАЛЫ",
-"about.title":"Бұл жай ғана<br>кешкі ас емес.",
-"about.text":"BAO — азиялық мінезі бар заманауи кеңістік. Мұнда жарқын дәмдер, суши, рамен, WOK және авторлық тағамдар үлкен қаланың эстетикасымен үйлеседі.",
-"about.quote":"Жақсы тағам — кешті тағы біраз жалғастыруға себеп.",
-
-"stats.rating":"Қонақтар рейтингі",
-"stats.seats":"Орын саны",
-"stats.hours":"Күн сайын",
-"stats.check":"Орташа чек",
-
-"chef.label":"BAO ТАҢДАУЫ",
-"chef.title":"Дәмі бар<br>кеш.",
-"chef.text":"Сүйікті раменіңізден бастаңыз, роллдарға тапсырыс беріңіз және десертке орын қалдырыңыз. BAO бірге жиналу үшін жасалған.",
-"chef.button":"Мәзірді көру",
-
-"menu.kicker":"МӘЗІР",
-"menu.title":"Өзіңізге ұнағанын таңдаңыз.",
-"menu.description":"Рамен мен WOK-тан бастап роллдар, поке және десерттерге дейінгі паназиялық дәмдер.",
-
-"gallery.kicker":"АТМОСФЕРА",
-"gallery.title":"BAO ішінен.",
-"gallery.description":"Қараңғы интерьер, жұмсақ жарық және Алматы орталығындағы жайлы кештерге арналған кеңістік.",
-"gallery.interior":"ИНТЕРЬЕР",
-"gallery.atmosphere":"АТМОСФЕРА",
-
-"experience.kicker":"СІЗДІҢ КЕШІҢІЗ",
-"experience.title":"Кеш BAO-дан басталады.",
-"experience.text":"Кешкі асқа, достармен кездесуге немесе сүйікті раменіңізге келіңіз. Үстелді алдын ала брондаңыз.",
-"experience.book":"Үстел брондау",
-"experience.map":"Қалай жетуге болады",
-
-"contacts.kicker":"БАЙЛАНЫС",
-"contacts.title":"Сізді күтеміз.",
-"contacts.description":"BAO Алматыдағы Assem Plaza-да, Төле би көшесі, 181 мекенжайында орналасқан.",
-"contacts.address.label":"Мекенжай",
-"contacts.address.value":"Алматы, Төле би, 181<br>Assem Plaza ТК",
-"contacts.phone.label":"Телефон",
-"contacts.hours.label":"Жұмыс уақыты",
-"contacts.hours.value":"Күн сайын · 12:00 — 00:00",
-"contacts.map":"BAO-ны 2GIS-тен ашу",
-
-"mobile.menu":"Мәзір",
-"mobile.call":"Қоңырау",
-"mobile.map":"2GIS"
-
-},
-
-en:{
-
-"nav.about":"About",
-"nav.chef":"BAO Selection",
-"nav.menu":"Menu",
-"nav.gallery":"Gallery",
-"nav.contacts":"Contacts",
-"nav.book":"Book a table",
-
-"hero.line1":"The taste of Asia.",
-"hero.line2":"In the heart of Almaty.",
-"hero.description":"Sushi, ramen, WOK and Pan-Asian cuisine in the atmosphere of modern Almaty. A place for dinners, meetings and beautiful evenings.",
-"hero.menu":"View menu",
-"hero.map":"Open BAO in 2GIS",
-"hero.location":"Tole Bi 181 · Assem Plaza",
-"hero.scroll":"Scroll",
-
-"about.kicker":"ABOUT BAO",
-"about.title":"More than<br>dinner.",
-"about.text":"BAO is a modern space with an Asian character. Bold flavours, sushi, ramen, WOK and signature combinations meet the aesthetics of a modern city.",
-"about.quote":"Good food is a reason to stay for one more evening.",
-
-"stats.rating":"Guest rating",
-"stats.seats":"Seats",
-"stats.hours":"Every day",
-"stats.check":"Average check",
-
-"chef.label":"BAO SELECTION",
-"chef.title":"An evening<br>with taste.",
-"chef.text":"Start with your favourite ramen, add a few rolls and save room for dessert. BAO was created for bringing people together.",
-"chef.button":"View menu",
-
-"menu.kicker":"MENU",
-"menu.title":"Choose your favourite.",
-"menu.description":"Pan-Asian flavours — from ramen and WOK dishes to rolls, poke and desserts.",
-
-"gallery.kicker":"ATMOSPHERE",
-"gallery.title":"Inside BAO.",
-"gallery.description":"Dark interiors, soft lighting and a space for a relaxed evening in the heart of Almaty.",
-"gallery.interior":"INTERIOR",
-"gallery.atmosphere":"ATMOSPHERE",
-
-"experience.kicker":"YOUR EVENING",
-"experience.title":"Your evening starts at BAO.",
-"experience.text":"Come for dinner, meet friends or simply enjoy your favourite ramen. Book your table in advance.",
-"experience.book":"Book a table",
-"experience.map":"Get directions",
-
-"contacts.kicker":"CONTACTS",
-"contacts.title":"We are waiting for you.",
-"contacts.description":"BAO is located in Assem Plaza at 181 Tole Bi Street.",
-"contacts.address.label":"Address",
-"contacts.address.value":"Almaty, Tole Bi 181<br>Assem Plaza",
-"contacts.phone.label":"Phone",
-"contacts.hours.label":"Opening hours",
-"contacts.hours.value":"Daily · 12:00 — 00:00",
-"contacts.map":"Open BAO in 2GIS",
-
-"mobile.menu":"Menu",
-"mobile.call":"Call",
-"mobile.map":"2GIS"
-
-}
-
-};
+    },
 
 
-/* =========================================================
-   MENU
-========================================================= */
+    kz: {
 
-const menuData={
+        navAbout: "Біз туралы",
+        navMenu: "Мәзір",
+        navGallery: "Галерея",
+        navExperience: "Атмосфера",
+        navContacts: "Байланыс",
 
-soups:{
-ru:"Супы",
-kz:"Сорпалар",
-en:"Soups",
-items:[
-["Сёю рамен","2470 ₸"],
-["Кукси","2770 ₸"],
-["Рамен шрирача с пастрами","3270 ₸"],
-["Рамен с морепродуктами","3570 ₸"],
-["Мисо широ","1770 ₸"],
-["Мисо с лососем","2570 ₸"],
-["Том Ям","4170 ₸"]
-]},
+        book: "Үстел брондау",
 
-burgers:{
-ru:"Бургеры",
-kz:"Бургерлер",
-en:"Burgers",
-items:[
-["БАО бургер с креветкой","2170 ₸"],
-["БАО бургер с мраморной говядиной","2270 ₸"],
-["БАО бургер с курицей","1570 ₸"]
-]},
+        heroKicker: "ASIA IN THE CITY",
+        heroTitle1: "Taste",
+        heroTitle2: "Asia.",
+        heroSubtitle: "BAO SUSHI & NOODLES BAR · ALMATY",
+        heroDescription:
+            "Заманауи азиялық асхана, ерекше дәмдер және үлкен қала атмосферасы.",
+        heroMenu: "Мәзірді көру",
+        heroMap: "2GIS ашу",
+        scroll: "Төмен жылжыңыз",
 
-poke:{
-ru:"Поке",
-kz:"Поке",
-en:"Poke",
-items:[
-["Поке с креветками","3970 ₸"],
-["Эдамаме боул","4770 ₸"]
-]},
+        aboutEyebrow: "BAO ТУРАЛЫ",
+        aboutIntro:
+            "BAO — азиялық асхана заманауи қалалық стильмен үйлесетін орын.",
+        aboutText1:
+            "BAO noodles & sushi bar — жарқын дәмдер мен еркін атмосфераны ұнататындарға арналған заманауи азиялық кафе.",
+        aboutText2:
+            "Мұнда жапон сушилері, паназиялық WOK, хош иісті рамен, поке және сүйікті тағамдар тоғысады.",
+        aboutText3:
+            "Түскі асқа, достармен кешке немесе сүйікті BAO тағамыңыз үшін келіңіз.",
+        aboutSignature: "Taste Asia.",
 
-wok:{
-ru:"WOK",
-kz:"WOK",
-en:"WOK",
-items:[
-["Тайская лапша пад тай","3770 ₸"],
-["Китайская лапша с жареной говядиной","2970 ₸"],
-["Пряная лапша с курицей и овощами","2870 ₸"]
-]},
+        statRating: "Рейтинг",
+        statReviews: "Пікір",
+        statSeats: "Орын",
+        statCheck: "Орташа чек",
 
-salads:{
-ru:"Салаты",
-kz:"Салаттар",
-en:"Salads",
-items:[
-["Asia Tofu","2970 ₸"],
-["Ким Чи","1570 ₸"],
-["Огурцы по-старинному тайваньскому рецепту","1570 ₸"],
-["Салат с тёплыми хрустящими баклажанами","2170 ₸"]
-]},
+        choiceNumber: "BAO / 01",
+        choiceTitle1: "Сүйікті",
+        choiceTitle2: "дәмдер.",
+        choiceText:
+            "Қанық рамен мен ащы WOK-тан бастап нәзік роллдар мен десерттерге дейін — BAO-да өз кешіңізді таңдаңыз.",
+        choicePrice: "1070 ₸ бастап",
+        choiceButton: "Мәзірді көру",
 
-hot:{
-ru:"Горячее",
-kz:"Ыстық тағамдар",
-en:"Hot dishes",
-items:[
-["Яннем Чикен","2970 ₸"],
-["Креветки в сладком соусе «Васаби» с миндалём","3170 ₸"]
-]},
+        menuEyebrow: "МӘЗІР",
+        menuText:
+            "Рамен, суши, WOK, поке, бургерлер, салаттар және десерттер — азиялық асхананың ең сүйікті тағамдары.",
 
-desserts:{
-ru:"Десерты",
-kz:"Десерттер",
-en:"Desserts",
-items:[
-["Моти с маракуйей","1070 ₸"],
-["Моти с ягодами","1070 ₸"],
-["Пудинг чиа с манговым пюре","2170 ₸"],
-["Тайский жареный банан с мороженым","1870 ₸"],
-["Мороженое","1070 ₸"]
-]},
+        galleryEyebrow: "BAO СӘТТЕРІ",
+        galleryText:
+            "BAO-ның шынайы сәттері — маңдайшадан қаптамаға, сүйікті тағамдардан қосымшаға дейін.",
+        gallerySign: "BAO маңдайшасы",
+        galleryPackaging: "BAO қаптамасы",
+        gallerySushi: "Суши",
+        galleryPizza: "Пицца",
+        galleryApp: "BAO қосымшасы",
 
-kids:{
-ru:"Детское",
-kz:"Балалар мәзірі",
-en:"Kids",
-items:[
-["Наггетсы Моана","1570 ₸"],
-["Сладкие роллы Панда по Кевину","1470 ₸"],
-["Супчик с лапшой Миньон","1070 ₸"]
-]},
+        experienceEyebrow: "BAO-ҒА КЕЛ",
+        experienceText:
+            "Төле би, 181 мекенжайындағы Assem Plaza-ға келіңіз. Достарыңызбен кездесіп, жаңа дәмдерді байқап көріңіз немесе сүйікті раменіңізге тапсырыс беріңіз.",
+        routeButton: "Қалай жетуге болады",
 
-rolls:{
-ru:"Роллы",
-kz:"Роллдар",
-en:"Rolls",
-items:[
-["Калифорния Кани","1970 ₸"],
-["Филадельфия Маки","3970 ₸"],
-["Ролл с тар-таром из краба","1970 ₸"],
-["Ролл с тар-таром из тунца Спайси","1970 ₸"],
-["Кани Эби","2870 ₸"],
-["Фудзи","2770 ₸"],
-["Sake Avokado","3570 ₸"],
-["Эби Авокадо","2970 ₸"],
-["Манго Эби","3570 ₸"],
-["Филадельфия Smoke","3770 ₸"],
-["Канада","2970 ₸"],
-["Чиз Эби Темпура Маки","2470 ₸"],
-["Американо ролл","3770 ₸"],
-["Поцелуй Гейши","4570 ₸"],
-["Жареный Crunch Roll с лососем и манго","2970 ₸"]
-]}
+        contactsEyebrow: "БАЙЛАНЫС",
+        contactsText:
+            "Сізді Төле би көшесіндегі Assem Plaza-да күтеміз.",
+
+        addressLabel: "Мекенжай",
+        phoneLabel: "Телефон",
+        hoursLabel: "Жұмыс уақыты",
+        hoursText: "Күн сайын",
+        socialLabel: "Әлеуметтік желілер",
+        mapButton: "2GIS ашу",
+        mapLink: "Картаны ашу",
+
+        footerDescription:
+            "Алматы орталығындағы заманауи азиялық асхана.",
+        footerNavigation: "Навигация",
+        footerFollow: "Бізбен бірге",
+        footerVisit: "Келіңіз",
+        footerMade: "Taste Asia.",
+
+        mobileCall: "☎ Қоңырау",
+        mobileMap: "⌖ 2GIS"
+
+    },
+
+
+    en: {
+
+        navAbout: "About",
+        navMenu: "Menu",
+        navGallery: "Gallery",
+        navExperience: "Atmosphere",
+        navContacts: "Contacts",
+
+        book: "Book a table",
+
+        heroKicker: "ASIA IN THE CITY",
+        heroTitle1: "Taste",
+        heroTitle2: "Asia.",
+        heroSubtitle: "BAO SUSHI & NOODLES BAR · ALMATY",
+        heroDescription:
+            "Modern Asian cuisine, bold flavours and the energy of the city.",
+        heroMenu: "View menu",
+        heroMap: "Open in 2GIS",
+        scroll: "Scroll down",
+
+        aboutEyebrow: "ABOUT BAO",
+        aboutIntro:
+            "BAO is where Asian cuisine meets modern urban style.",
+        aboutText1:
+            "BAO noodles & sushi bar is a modern city café created for those who love bold flavours and a relaxed atmosphere.",
+        aboutText2:
+            "Japanese sushi, pan-Asian WOK, rich ramen, poke and dishes you will want to order again.",
+        aboutText3:
+            "Drop by for lunch, an evening with friends or simply your favourite BAO dish.",
+        aboutSignature: "Taste Asia.",
+
+        statRating: "Rating",
+        statReviews: "Reviews",
+        statSeats: "Seats",
+        statCheck: "Average check",
+
+        choiceNumber: "BAO / 01",
+        choiceTitle1: "Favourite",
+        choiceTitle2: "flavours.",
+        choiceText:
+            "From rich ramen and spicy WOK to delicate rolls and desserts — create your perfect BAO evening.",
+        choicePrice: "from 1070 ₸",
+        choiceButton: "View menu",
+
+        menuEyebrow: "MENU",
+        menuText:
+            "Ramen, sushi, WOK, poke, burgers, salads and desserts — all your Asian favourites.",
+
+        galleryEyebrow: "BAO MOMENTS",
+        galleryText:
+            "Real BAO moments — from our sign and packaging to favourite dishes and our app.",
+        gallerySign: "BAO sign",
+        galleryPackaging: "BAO packaging",
+        gallerySushi: "Sushi",
+        galleryPizza: "Pizza",
+        galleryApp: "BAO app",
+
+        experienceEyebrow: "COME TO BAO",
+        experienceText:
+            "Come to Tole Bi 181 at Assem Plaza. Meet friends, discover new flavours or simply enjoy your favourite ramen.",
+        routeButton: "Get directions",
+
+        contactsEyebrow: "CONTACTS",
+        contactsText:
+            "Find us at Assem Plaza on Tole Bi street.",
+
+        addressLabel: "Address",
+        phoneLabel: "Phone",
+        hoursLabel: "Opening",
+        hoursText: "Every day",
+        socialLabel: "Social",
+        mapButton: "Open 2GIS",
+        mapLink: "Open map",
+
+        footerDescription:
+            "Modern Asian cuisine in the heart of Almaty.",
+        footerNavigation: "Navigation",
+        footerFollow: "Follow",
+        footerVisit: "Visit",
+        footerMade: "Taste Asia.",
+
+        mobileCall: "☎ Call",
+        mobileMap: "⌖ 2GIS"
+
+    }
 
 };
 
 
-/* =========================================================
+/* =========================
+   MENU DATA
+========================= */
+
+const menuData = {
+
+    soups: {
+        ru: "Супы",
+        kz: "Сорпалар",
+        en: "Soups",
+
+        items: [
+            ["Сёю рамен", "2470"],
+            ["Кукси", "2770"],
+            ["Рамен шрирача с пастрами", "3270"],
+            ["Рамен с морепродуктами", "3570"],
+            ["Мисо широ", "1770"],
+            ["Мисо с лососем", "2570"],
+            ["Том Ям", "4170"]
+        ]
+    },
+
+
+    burgers: {
+        ru: "Бургеры",
+        kz: "Бургерлер",
+        en: "Burgers",
+
+        items: [
+            ["БАО бургер с креветкой", "2170"],
+            ["БАО бургер с мраморной говядиной", "2270"],
+            ["БАО бургер с курицей", "1570"]
+        ]
+    },
+
+
+    poke: {
+        ru: "Поке",
+        kz: "Поке",
+        en: "Poke",
+
+        items: [
+            ["Поке с креветками", "3970"],
+            ["Эдамаме боул", "4770"]
+        ]
+    },
+
+
+    wok: {
+        ru: "WOK",
+        kz: "WOK",
+        en: "WOK",
+
+        items: [
+            ["Тайская лапша пад тай", "3770"],
+            ["Китайская лапша с жареной говядиной", "2970"],
+            ["Пряная лапша с курицей и овощами", "2870"]
+        ]
+    },
+
+
+    salads: {
+        ru: "Салаты",
+        kz: "Салаттар",
+        en: "Salads",
+
+        items: [
+            ["Asia Tofu", "2970"],
+            ["Ким Чи", "1570"],
+            ["Огурцы по старинному тайваньскому рецепту", "1570"],
+            ["Салат с тёплыми хрустящими баклажанами", "2170"]
+        ]
+    },
+
+
+    hot: {
+        ru: "Горячее",
+        kz: "Ыстық тағамдар",
+        en: "Hot dishes",
+
+        items: [
+            ["Яннем Чикен", "2970"],
+            ['Креветки в сладком соусе "Васаби" с миндалем', "3170"]
+        ]
+    },
+
+
+    desserts: {
+        ru: "Десерты",
+        kz: "Десерттер",
+        en: "Desserts",
+
+        items: [
+            ["Моти с маракуйей", "1070"],
+            ["Моти с ягодами", "1070"],
+            ["Пудинг чиа с манговым пюре", "2170"],
+            ["Тайский жареный банан с мороженым", "1870"],
+            ["Мороженое", "1070"]
+        ]
+    },
+
+
+    kids: {
+        ru: "Детское",
+        kz: "Балалар мәзірі",
+        en: "Kids",
+
+        items: [
+            ["Наггетсы Моана", "1570"],
+            ["Сладкие роллы Панда по Кевину", "1470"],
+            ["Супчик с лапшой Миньон", "1070"]
+        ]
+    },
+
+
+    rolls: {
+        ru: "Роллы",
+        kz: "Роллдар",
+        en: "Rolls",
+
+        items: [
+            ["Калифорния Кани", "1970"],
+            ["Филадельфия Маки", "3970"],
+            ["Ролл с тар-таром из краба", "1970"],
+            ["Ролл с тар-таром из тунца Спайси", "1970"],
+            ["Кани Эби", "2870"],
+            ["Фудзи", "2770"],
+            ["Sake Avokado", "3570"],
+            ["Эби Авокадо", "2970"],
+            ["Манго Эби", "3570"],
+            ["Филадельфия Smoke", "3770"],
+            ["Канада", "2970"],
+            ["Чиз Эби Темпура Маки", "2470"],
+            ["Американо ролл", "3770"],
+            ["Поцелуй Гейши", "4570"],
+            ["Жаренный Crunch Roll с лососем и манго", "2970"]
+        ]
+    }
+
+};
+
+
+/* =========================
    MENU TRANSLATIONS
-========================================================= */
+========================= */
 
-const menuNames={
+const menuNames = {
 
-"Сёю рамен":{
-kz:"Сёю рамен",
-en:"Shoyu Ramen"
-},
+    "Сёю рамен": {
+        kz: "Сёю рамен",
+        en: "Shoyu Ramen"
+    },
 
-"Кукси":{
-kz:"Кукси",
-en:"Kuksi"
-},
+    "Кукси": {
+        kz: "Кукси",
+        en: "Kuksi"
+    },
 
-"Рамен шрирача с пастрами":{
-kz:"Пастрами қосылған шрирача рамен",
-en:"Sriracha Ramen with Pastrami"
-},
+    "Рамен шрирача с пастрами": {
+        kz: "Пастрами қосылған шрирача рамені",
+        en: "Sriracha Ramen with Pastrami"
+    },
 
-"Рамен с морепродуктами":{
-kz:"Теңіз өнімдері қосылған рамен",
-en:"Seafood Ramen"
-},
+    "Рамен с морепродуктами": {
+        kz: "Теңіз өнімдері қосылған рамен",
+        en: "Seafood Ramen"
+    },
 
-"Мисо широ":{
-kz:"Мисо широ",
-en:"Miso Shiro"
-},
+    "Мисо широ": {
+        kz: "Мисо Широ",
+        en: "Miso Shiro"
+    },
 
-"Мисо с лососем":{
-kz:"Лосось қосылған мисо",
-en:"Miso with Salmon"
-},
+    "Мисо с лососем": {
+        kz: "Лосось қосылған мисо",
+        en: "Miso with Salmon"
+    },
 
-"Том Ям":{
-kz:"Том Ям",
-en:"Tom Yum"
-},
+    "Том Ям": {
+        kz: "Том Ям",
+        en: "Tom Yum"
+    },
 
-"БАО бургер с креветкой":{
-kz:"Асшаян қосылған BAO бургері",
-en:"BAO Shrimp Burger"
-},
+    "БАО бургер с креветкой": {
+        kz: "Асшаян қосылған BAO бургері",
+        en: "BAO Shrimp Burger"
+    },
 
-"БАО бургер с мраморной говядиной":{
-kz:"Мәрмәр сиыр еті қосылған BAO бургері",
-en:"BAO Marble Beef Burger"
-},
+    "БАО бургер с мраморной говядиной": {
+        kz: "Мәрмәр сиыр еті қосылған BAO бургері",
+        en: "BAO Marble Beef Burger"
+    },
 
-"БАО бургер с курицей":{
-kz:"Тауық еті қосылған BAO бургері",
-en:"BAO Chicken Burger"
-},
+    "БАО бургер с курицей": {
+        kz: "Тауық қосылған BAO бургері",
+        en: "BAO Chicken Burger"
+    },
 
-"Поке с креветками":{
-kz:"Асшаян қосылған поке",
-en:"Shrimp Poke"
-},
+    "Поке с креветками": {
+        kz: "Асшаян қосылған поке",
+        en: "Shrimp Poke"
+    },
 
-"Эдамаме боул":{
-kz:"Эдамаме боулы",
-en:"Edamame Bowl"
-},
+    "Эдамаме боул": {
+        kz: "Эдамаме боул",
+        en: "Edamame Bowl"
+    },
 
-"Тайская лапша пад тай":{
-kz:"Тай кеспесі пад тай",
-en:"Thai Pad Thai Noodles"
-},
+    "Тайская лапша пад тай": {
+        kz: "Тай кеспесі пад тай",
+        en: "Pad Thai"
+    },
 
-"Китайская лапша с жареной говядиной":{
-kz:"Қуырылған сиыр еті қосылған қытай кеспесі",
-en:"Chinese Noodles with Fried Beef"
-},
+    "Китайская лапша с жареной говядиной": {
+        kz: "Қуырылған сиыр еті қосылған қытай кеспесі",
+        en: "Chinese Noodles with Fried Beef"
+    },
 
-"Пряная лапша с курицей и овощами":{
-kz:"Тауық пен көкөністер қосылған ащы кеспе",
-en:"Spicy Noodles with Chicken & Vegetables"
-},
+    "Пряная лапша с курицей и овощами": {
+        kz: "Тауық пен көкөністер қосылған ащы кеспе",
+        en: "Spicy Noodles with Chicken & Vegetables"
+    },
 
-"Asia Tofu":{
-kz:"Asia Tofu",
-en:"Asia Tofu"
-},
+    "Asia Tofu": {
+        kz: "Asia Tofu",
+        en: "Asia Tofu"
+    },
 
-"Ким Чи":{
-kz:"Ким Чи",
-en:"Kimchi"
-},
+    "Ким Чи": {
+        kz: "Ким Чи",
+        en: "Kimchi"
+    },
 
-"Огурцы по-старинному тайваньскому рецепту":{
-kz:"Тайваньша дайындалған қияр",
-en:"Traditional Taiwanese Cucumbers"
-},
+    "Огурцы по старинному тайваньскому рецепту": {
+        kz: "Тайваньша дайындалған қияр",
+        en: "Taiwanese-style Cucumbers"
+    },
 
-"Салат с тёплыми хрустящими баклажанами":{
-kz:"Жылы қытырлақ баклажан салаты",
-en:"Warm Crispy Eggplant Salad"
-},
+    "Салат с тёплыми хрустящими баклажанами": {
+        kz: "Жылы қытырлақ баклажан салаты",
+        en: "Warm Crispy Eggplant Salad"
+    },
 
-"Яннем Чикен":{
-kz:"Яннем Чикен",
-en:"Yangnyeom Chicken"
-},
+    "Яннем Чикен": {
+        kz: "Яннем Чикен",
+        en: "Yangnyeom Chicken"
+    },
 
-"Креветки в сладком соусе «Васаби» с миндалём":{
-kz:"Бадам қосылған тәтті «Васаби» соусындағы асшаяндар",
-en:"Shrimp in Sweet Wasabi Sauce with Almonds"
-},
+    'Креветки в сладком соусе "Васаби" с миндалем': {
+        kz: "Бадам қосылған тәтті васаби соусындағы асшаяндар",
+        en: "Shrimp in Sweet Wasabi Sauce with Almonds"
+    },
 
-"Моти с маракуйей":{
-kz:"Маракуйя қосылған моти",
-en:"Passion Fruit Mochi"
-},
+    "Моти с маракуйей": {
+        kz: "Маракуйя қосылған моти",
+        en: "Passion Fruit Mochi"
+    },
 
-"Моти с ягодами":{
-kz:"Жидектер қосылған моти",
-en:"Berry Mochi"
-},
+    "Моти с ягодами": {
+        kz: "Жидек қосылған моти",
+        en: "Berry Mochi"
+    },
 
-"Пудинг чиа с манговым пюре":{
-kz:"Манго пюресі қосылған чиа пудингі",
-en:"Chia Pudding with Mango"
-},
+    "Пудинг чиа с манговым пюре": {
+        kz: "Манго пюресі қосылған чиа пудингі",
+        en: "Chia Pudding with Mango Puree"
+    },
 
-"Тайский жареный банан с мороженым":{
-kz:"Балмұздақпен тайша қуырылған банан",
-en:"Thai Fried Banana with Ice Cream"
-},
+    "Тайский жареный банан с мороженым": {
+        kz: "Балмұздақпен тайша қуырылған банан",
+        en: "Thai Fried Banana with Ice Cream"
+    },
 
-"Мороженое":{
-kz:"Балмұздақ",
-en:"Ice Cream"
-},
+    "Мороженое": {
+        kz: "Балмұздақ",
+        en: "Ice Cream"
+    },
 
-"Наггетсы Моана":{
-kz:"Моана наггетстары",
-en:"Moana Nuggets"
-},
+    "Наггетсы Моана": {
+        kz: "Моана наггетстері",
+        en: "Moana Nuggets"
+    },
 
-"Сладкие роллы Панда по Кевину":{
-kz:"Кевин стиліндегі тәтті Панда роллдары",
-en:"Kevin's Panda Sweet Rolls"
-},
+    "Сладкие роллы Панда по Кевину": {
+        kz: "Кевин бойынша Панда тәтті роллдары",
+        en: "Panda Sweet Rolls"
+    },
 
-"Супчик с лапшой Миньон":{
-kz:"Миньон кеспелі сорпасы",
-en:"Minion Noodle Soup"
-},
+    "Супчик с лапшой Миньон": {
+        kz: "Миньон кеспе сорпасы",
+        en: "Minion Noodle Soup"
+    },
 
-"Калифорния Кани":{
-kz:"Калифорния Кани",
-en:"California Kani"
-},
+    "Калифорния Кани": {
+        kz: "Калифорния Кани",
+        en: "California Kani"
+    },
 
-"Филадельфия Маки":{
-kz:"Филадельфия Маки",
-en:"Philadelphia Maki"
-},
+    "Филадельфия Маки": {
+        kz: "Филадельфия Маки",
+        en: "Philadelphia Maki"
+    },
 
-"Ролл с тар-таром из краба":{
-kz:"Краб тартары қосылған ролл",
-en:"Crab Tartare Roll"
-},
+    "Ролл с тар-таром из краба": {
+        kz: "Краб тартары қосылған ролл",
+        en: "Crab Tartare Roll"
+    },
 
-"Ролл с тар-таром из тунца Спайси":{
-kz:"Спайси тунец тартары қосылған ролл",
-en:"Spicy Tuna Tartare Roll"
-},
+    "Ролл с тар-таром из тунца Спайси": {
+        kz: "Ащы тунец тартары қосылған ролл",
+        en: "Spicy Tuna Tartare Roll"
+    },
 
-"Кани Эби":{
-kz:"Кани Эби",
-en:"Kani Ebi"
-},
+    "Кани Эби": {
+        kz: "Кани Эби",
+        en: "Kani Ebi"
+    },
 
-"Фудзи":{
-kz:"Фудзи",
-en:"Fuji"
-},
+    "Фудзи": {
+        kz: "Фудзи",
+        en: "Fuji"
+    },
 
-"Sake Avokado":{
-kz:"Sake Avokado",
-en:"Sake Avocado"
-},
+    "Sake Avokado": {
+        kz: "Sake Avokado",
+        en: "Sake Avocado"
+    },
 
-"Эби Авокадо":{
-kz:"Эби Авокадо",
-en:"Ebi Avocado"
-},
+    "Эби Авокадо": {
+        kz: "Эби Авокадо",
+        en: "Ebi Avocado"
+    },
 
-"Манго Эби":{
-kz:"Манго Эби",
-en:"Mango Ebi"
-},
+    "Манго Эби": {
+        kz: "Манго Эби",
+        en: "Mango Ebi"
+    },
 
-"Филадельфия Smoke":{
-kz:"Филадельфия Smoke",
-en:"Philadelphia Smoke"
-},
+    "Филадельфия Smoke": {
+        kz: "Филадельфия Smoke",
+        en: "Philadelphia Smoke"
+    },
 
-"Канада":{
-kz:"Канада",
-en:"Canada"
-},
+    "Канада": {
+        kz: "Канада",
+        en: "Canada"
+    },
 
-"Чиз Эби Темпура Маки":{
-kz:"Чиз Эби Темпура Маки",
-en:"Cheese Ebi Tempura Maki"
-},
+    "Чиз Эби Темпура Маки": {
+        kz: "Чиз Эби Темпура Маки",
+        en: "Cheese Ebi Tempura Maki"
+    },
 
-"Американо ролл":{
-kz:"Американо ролл",
-en:"Americano Roll"
-},
+    "Американо ролл": {
+        kz: "Американо ролл",
+        en: "Americano Roll"
+    },
 
-"Поцелуй Гейши":{
-kz:"Гейшаның сүйісі",
-en:"Geisha's Kiss"
-},
+    "Поцелуй Гейши": {
+        kz: "Гейшаның сүйісі",
+        en: "Geisha's Kiss"
+    },
 
-"Жареный Crunch Roll с лососем и манго":{
-kz:"Лосось пен манго қосылған қытырлақ Crunch Roll",
-en:"Fried Crunch Roll with Salmon & Mango"
-}
+    "Жаренный Crunch Roll с лососем и манго": {
+        kz: "Лосось пен манго қосылған Crunch Roll",
+        en: "Fried Crunch Roll with Salmon & Mango"
+    }
 
 };
 
 
-/* =========================================================
+/* =========================
    MENU RENDER
-========================================================= */
+========================= */
 
-let currentLang="ru";
-let currentCategory="soups";
+let currentLang = "ru";
+let currentCategory = "soups";
 
-const tabs=document.getElementById("menuTabs");
-const grid=document.getElementById("menuGrid");
+const menuTabs = document.getElementById("menuTabs");
+const menuList = document.getElementById("menuList");
 
-function renderTabs(){
 
-    tabs.innerHTML="";
+function renderTabs() {
 
-    Object.keys(menuData).forEach(key=>{
+    menuTabs.innerHTML = "";
 
-        const button=document.createElement("button");
+    Object.keys(menuData).forEach((key) => {
 
-        button.className=
-            "menu-tab "+
-            (key===currentCategory?"active":"");
+        const button = document.createElement("button");
 
-        button.textContent=menuData[key][currentLang];
+        button.className =
+            "menu-tab" +
+            (key === currentCategory ? " active" : "");
 
-        button.addEventListener("click",()=>{
+        button.textContent = menuData[key][currentLang];
 
-            currentCategory=key;
+        button.addEventListener("click", () => {
+
+            currentCategory = key;
 
             renderTabs();
             renderMenu();
 
         });
 
-        tabs.appendChild(button);
+        menuTabs.appendChild(button);
 
     });
 
 }
 
-function renderMenu(){
 
-    grid.innerHTML="";
+function renderMenu() {
 
-    const category=menuData[currentCategory];
+    menuList.innerHTML = "";
 
-    category.items.forEach((item,index)=>{
+    const category = menuData[currentCategory];
 
-        const originalName=item[0];
-        const price=item[1];
+    category.items.forEach((item, index) => {
 
-        let name=originalName;
+        const originalName = item[0];
+        const price = item[1];
 
-        if(
-            currentLang!=="ru" &&
+        let name = originalName;
+
+        if (
+            currentLang !== "ru" &&
             menuNames[originalName] &&
             menuNames[originalName][currentLang]
-        ){
-            name=menuNames[originalName][currentLang];
+        ) {
+            name = menuNames[originalName][currentLang];
         }
 
-        const card=document.createElement("div");
+        const element = document.createElement("div");
 
-        card.className="menu-card";
+        element.className = "menu-item";
 
-        card.innerHTML=`
+        element.style.animationDelay =
+            `${index * 0.035}s`;
 
-            <div class="menu-card-left">
+        element.innerHTML = `
 
-                <div class="menu-card-index">
-                    ${String(index+1).padStart(2,"0")}
-                </div>
+            <div class="menu-item-info">
 
-                <div class="menu-card-name">
+                <div class="menu-item-name">
                     ${name}
-                </div>
-
-                <div class="menu-card-desc">
-                    BAO · ${category[currentLang]}
                 </div>
 
             </div>
 
             <div class="menu-price">
-                ${price}
+                ${price} ₸
             </div>
 
         `;
 
-        grid.appendChild(card);
+        menuList.appendChild(element);
 
     });
 
 }
 
-renderTabs();
-renderMenu();
 
-
-/* =========================================================
+/* =========================
    LANGUAGE
-========================================================= */
+========================= */
 
-function changeLanguage(lang){
+function changeLanguage(lang) {
 
-    currentLang=lang;
+    currentLang = lang;
 
-    document.documentElement.lang=lang;
+    document.documentElement.lang = lang;
 
-    document.querySelectorAll("[data-i18n]").forEach(el=>{
+    document
+        .querySelectorAll("[data-i18n]")
+        .forEach((element) => {
 
-        const key=el.dataset.i18n;
+            const key = element.dataset.i18n;
 
-        if(translations[lang][key]){
-            el.innerHTML=translations[lang][key];
-        }
+            if (
+                translations[lang] &&
+                translations[lang][key]
+            ) {
+                element.innerHTML =
+                    translations[lang][key];
+            }
 
-    });
+        });
 
-    document.querySelectorAll(".lang").forEach(btn=>{
 
-        btn.classList.toggle(
-            "active",
-            btn.dataset.lang===lang
-        );
+    document
+        .querySelectorAll(".lang-btn")
+        .forEach((button) => {
 
-    });
+            button.classList.toggle(
+                "active",
+                button.dataset.lang === lang
+            );
+
+        });
+
 
     renderTabs();
     renderMenu();
 
 }
 
-document.querySelectorAll(".lang").forEach(btn=>{
 
-    btn.addEventListener("click",()=>{
+document
+    .querySelectorAll(".lang-btn")
+    .forEach((button) => {
 
-        changeLanguage(btn.dataset.lang);
+        button.addEventListener("click", () => {
+
+            changeLanguage(
+                button.dataset.lang
+            );
+
+        });
 
     });
 
-});
 
+/* =========================
+   HEADER SCROLL
+========================= */
 
-/* =========================================================
-   HEADER
-========================================================= */
+const header =
+    document.getElementById("header");
 
-const header=document.getElementById("header");
-
-function updateHeader(){
+function checkHeader() {
 
     header.classList.toggle(
         "scrolled",
-        window.scrollY>40
+        window.scrollY > 40
     );
 
 }
 
 window.addEventListener(
     "scroll",
-    updateHeader,
-    {passive:true}
+    checkHeader
 );
 
-updateHeader();
+checkHeader();
 
 
-/* =========================================================
+/* =========================
    MOBILE MENU
-========================================================= */
+========================= */
 
-const menuToggle=document.getElementById("menuToggle");
-const mobileMenu=document.getElementById("mobileMenu");
+const menuToggle =
+    document.getElementById("menuToggle");
 
-menuToggle.addEventListener("click",()=>{
+const mobileMenu =
+    document.getElementById("mobileMenu");
 
-    mobileMenu.classList.toggle("open");
-    document.body.classList.toggle("lock");
+
+function closeMobileMenu() {
+
+    mobileMenu.classList.remove("active");
+
+    document.body.classList.remove("menu-open");
+
+}
+
+
+menuToggle.addEventListener("click", () => {
+
+    mobileMenu.classList.toggle("active");
+
+    document.body.classList.toggle(
+        "menu-open"
+    );
 
 });
 
-document.querySelectorAll(".mobile-menu a").forEach(link=>{
 
-    link.addEventListener("click",()=>{
+document
+    .querySelectorAll("[data-mobile-link]")
+    .forEach((link) => {
 
-        mobileMenu.classList.remove("open");
-        document.body.classList.remove("lock");
+        link.addEventListener(
+            "click",
+            closeMobileMenu
+        );
 
     });
 
-});
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+const revealObserver =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach((entry) => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add(
+                        "visible"
+                    );
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold: .12
+        }
+    );
 
 
-/* =========================================================
-   REVEAL
-========================================================= */
+document
+    .querySelectorAll(".reveal")
+    .forEach((element) => {
 
-const observer=new IntersectionObserver(
-    entries=>{
+        revealObserver.observe(element);
 
-        entries.forEach(entry=>{
+    });
 
-            if(entry.isIntersecting){
 
-                entry.target.classList.add("visible");
+/* =========================
+   LIGHTBOX
+========================= */
 
-                observer.unobserve(entry.target);
+const lightbox =
+    document.getElementById("lightbox");
 
-            }
+const lightboxImage =
+    document.getElementById("lightboxImage");
+
+const lightboxClose =
+    document.getElementById("lightboxClose");
+
+
+document
+    .querySelectorAll(".gallery-item img")
+    .forEach((image) => {
+
+        image.addEventListener("click", () => {
+
+            lightboxImage.src =
+                image.src;
+
+            lightboxImage.alt =
+                image.alt;
+
+            lightbox.classList.add(
+                "active"
+            );
+
+            document.body.classList.add(
+                "menu-open"
+            );
 
         });
 
-    },
-    {
-        threshold:.1
-    }
-);
-
-document.querySelectorAll(".reveal").forEach(el=>{
-    observer.observe(el);
-});
-
-
-/* =========================================================
-   LIGHTBOX
-========================================================= */
-
-const lightbox=document.getElementById("lightbox");
-const lightboxImage=document.getElementById("lightboxImage");
-const lightboxClose=document.getElementById("lightboxClose");
-
-document.querySelectorAll(".gallery-item img").forEach(img=>{
-
-    img.addEventListener("click",()=>{
-
-        lightboxImage.src=img.src;
-
-        lightbox.classList.add("open");
-
-        document.body.classList.add("lock");
-
     });
 
-});
 
-function closeLightbox(){
+function closeLightbox() {
 
-    lightbox.classList.remove("open");
+    lightbox.classList.remove(
+        "active"
+    );
 
-    document.body.classList.remove("lock");
+    document.body.classList.remove(
+        "menu-open"
+    );
 
 }
+
 
 lightboxClose.addEventListener(
     "click",
     closeLightbox
 );
 
-lightbox.addEventListener("click",e=>{
 
-    if(e.target===lightbox){
-        closeLightbox();
+lightbox.addEventListener(
+    "click",
+    (event) => {
+
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+
     }
+);
 
-});
 
-document.addEventListener("keydown",e=>{
+document.addEventListener(
+    "keydown",
+    (event) => {
 
-    if(e.key==="Escape"){
-        closeLightbox();
+        if (
+            event.key === "Escape" &&
+            lightbox.classList.contains("active")
+        ) {
+            closeLightbox();
+        }
+
     }
+);
 
-});
 
-
-/* =========================================================
+/* =========================
    IMAGE FALLBACK
-========================================================= */
+========================= */
 
-document.querySelectorAll("img").forEach(img=>{
+document
+    .querySelectorAll("img")
+    .forEach((img) => {
 
-    img.addEventListener("error",()=>{
+        img.addEventListener(
+            "error",
+            () => {
 
-        img.style.background=
-            "linear-gradient(135deg,#1a1511,#090807)";
+                img.style.background =
+                    "linear-gradient(135deg,#1c1814,#0e0c0a)";
 
-        img.style.minHeight="200px";
+                img.style.objectFit =
+                    "contain";
+
+                img.alt =
+                    "BAO";
+
+            }
+        );
 
     });
 
-});
 
+/* =========================
+   INIT
+========================= */
 
-/* =========================================================
-   ACTIVE MOBILE NAV
-========================================================= */
+renderTabs();
+renderMenu();
 
-const mobileLinks=document.querySelectorAll(".mobile-bar a");
-
-const sections=[
-    document.getElementById("menu"),
-    document.getElementById("contacts")
-];
-
-window.addEventListener("scroll",()=>{
-
-    const y=window.scrollY+window.innerHeight*.55;
-
-    mobileLinks.forEach(link=>{
-        link.classList.remove("active");
-    });
-
-    if(y>=sections[0].offsetTop &&
-       y<sections[1].offsetTop){
-
-        mobileLinks[0].classList.add("active");
-
-    }else if(y>=sections[1].offsetTop){
-
-        mobileLinks[2].classList.add("active");
-
-    }
-
-},{passive:true});
-
-
-/* =========================================================
-   LOADER
-========================================================= */
-
-window.addEventListener("load",()=>{
-
-    setTimeout(()=>{
-
-        document
-            .getElementById("loader")
-            .classList.add("hide");
-
-    },700);
-
-});
+changeLanguage("ru");
 
 </script>
 
